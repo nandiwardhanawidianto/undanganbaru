@@ -6,7 +6,9 @@ export default {
   ],
   theme: {
     extend: {
-      gold: 'f3c55c'
+      colors: {
+      gold: "#f3c55c"
+      }
     },
     fontFamily: {
       display: ['Playfair Display', 'cursive'],
