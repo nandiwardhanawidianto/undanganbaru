@@ -5,6 +5,15 @@
   text-align: center;
 }
 
+/* Force purple background */
+body {
+  background-color: #6b46c1 !important;
+}
+
+.purple-bg-force {
+  background-color: #6b46c1 !important;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

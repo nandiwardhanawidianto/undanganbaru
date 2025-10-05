@@ -1,45 +1,65 @@
-// import { FaCalendarCheck } from "react-icons/fa";
-
-// export default function Hero() {
-//     return (
-//       <section id="home" className="h-screen flex flex-col items-center justify-center bg-black text-white">
-//         <h1 className="text-5xl font-display italic text-gold">Nandi & Mia</h1>
-//         <p className="mt-4 text-xl text-gold">Rabu, 15 Maret 2023</p>
-//         <span className="mt-8 animate-bounce"><i className="fas fa-chevron-down"></i> Scroll Down</span>
-//       </section>
-//     );
-//   }
-  
-
 import { FaChevronDown, FaCalendarCheck } from "react-icons/fa";
+import Pigura from "/pigura.png";
+import bgHero from "../assets/BG.png";
 
-export default function Hero() {
+export default function Hero({ data }) {
+  const hero = data?.heroInvitation || {};
+
+  // const tanggalAcara = acara.tanggal_acara; // misal "2025-11-11"
+  const acara = data?.acaras?.[0] || {}; // ambil acara pertama
+  const tanggalAcara = acara?.tanggal_acara;
+  const tanggalFormatted = tanggalAcara
+    ? new Date(tanggalAcara).toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      })
+    : "-";
+
   return (
     <section
       id="home"
-      className="h-screen flex flex-col items-center justify-center bg-black text-white"
+      className="relative min-h-screen flex flex-col items-center justify-center text-white overflow-hidden"
     >
-      <h1 className="text-5xl font-display italic text-gold">
-        Nandi & Mia
-      </h1>
-      <p className="mt-4 text-xl text-gold">Rabu, 15 Maret 2023</p>
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${hero.background_photo || bgHero})` }}
+      ></div>
 
-      {/* Tombol Save The Date */}
-      <a
-        href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=The%20Wedding%20of%20Nandi%20and%20Mia&details=The%20Wedding%20of%20Nandi%20and%20Mia%20%7C%2015%20Maret%202023%20%7C%20Lokasi%20Undangan&dates=20230315T100000/20230315T110000"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-6 inline-flex items-center gap-2 rounded-full border border-white px-4 py-2 text-sm text-white shadow hover:bg-gold hover:text-black transition"
-      >
-        <FaCalendarCheck />
-        Save The Date
-      </a>
+      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 flex flex-col items-center justify-center">
+        <div className="relative flex items-center justify-center w-full">
+          <img
+            src={Pigura}
+            alt="Pigura Dekorasi"
+            className="relative z-10 w-full max-w-[90vw] sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-[600px] xl:max-w-[700px] h-auto"
+          />
 
-      {/* Scroll Down */}
-      <span className="mt-8 flex flex-col items-center animate-bounce text-gold">
-        <FaChevronDown className="text-2xl" />
-        <span className="text-sm">Scroll Down</span>
-      </span>
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
+            <h1 className="text-3xl md:text-4xl text-purple mb-4">The Wedding Of</h1>
+              <div className="flex flex-col items-center text-center text-4xl italic font-display text-ungu-500 gap-y-2">
+                <span>{hero.nama_panggilan_pria || "Loading..."}</span>
+                <span className="text-3xl">&amp;</span>
+                <span>{hero.nama_panggilan_wanita || ""}</span>
+              </div>
+             <div className="text-2xl italic font-display text-ungu-500 mt-10">
+              {tanggalFormatted}
+            </div>
+          </div>
+        </div>
+
+        <a
+          href="#"
+          className="inline-flex items-center gap-3 bg-white text-purple px-6 sm:px-8 py-2 sm:py-3 rounded-full font-semibold hover:bg-purple hover:text-white hover:shadow-xl transition-all duration-300 shadow-lg mt-6 sm:mt-8"
+        >
+          <FaCalendarCheck className="text-lg" />
+          Save The Date
+        </a>
+
+        <div className="mt-8 sm:mt-12 flex flex-col items-center animate-bounce">
+          <FaChevronDown className="text-2xl text-white mb-2" />
+          <span className="text-xl text-white">Scroll Down</span>
+        </div>
+      </div>
     </section>
   );
 }

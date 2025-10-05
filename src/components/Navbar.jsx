@@ -6,7 +6,7 @@ import { IoMdPhotos } from "react-icons/io";
 
 export default function Navbar() {
     return (
-      <nav className="fixed bottom-0 w-full rounded-tl-2xl rounded-tr-2xl bg-gold text-black">
+      <nav className="fixed bottom-0 w-full z-50 rounded-tl-2xl rounded-tr-2xl bg-ungu-500 text-white">
         <ul className="flex justify-around">
           <li>
              <a href="#home" className="flex flex-col items-center py-2">
