@@ -1,169 +1,140 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 export default function Galeri({ data }) {
   const [slidesAtas, setSlidesAtas] = useState([]);
   const [slidesBawah, setSlidesBawah] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const [currentSlide1, setCurrentSlide1] = useState(0);
-  const [isTransitioning1, setIsTransitioning1] = useState(false);
-
   const [currentSlide2, setCurrentSlide2] = useState(0);
-  const [isTransitioning2, setIsTransitioning2] = useState(false);
+  const [direction1, setDirection1] = useState("right");
+  const [direction2, setDirection2] = useState("right");
+
+  const prevDataRef = useRef();
 
   useEffect(() => {
-    if (!data?.galeri || data.galeri.length === 0) return;
+    if (data === prevDataRef.current) return;
+    prevDataRef.current = data;
 
-    const baseUrl = "http://127.0.0.1:8000/storage/";
-    const galeri = data.galeri[0];
-
-    try {
-      // Parse JSON string ke array
-      const atas = JSON.parse(galeri.carousel_atas || "[]").map(
-        (path) => baseUrl + path
-      );
-      const bawah = JSON.parse(galeri.carousel_bawah || "[]").map(
-        (path) => baseUrl + path
-      );
-
-      setSlidesAtas(atas);
-      setSlidesBawah(bawah);
-    } catch (err) {
-      console.error("Gagal parsing galeri:", err);
+    if (!data?.galeri || data.galeri.length === 0) {
+      setIsLoaded(false);
+      return;
     }
+
+    const galeri = data.galeri[0];
+    let atas = [];
+    let bawah = [];
+
+    if (Array.isArray(galeri.carousel_atas) && galeri.carousel_atas.length > 0) {
+      atas = galeri.carousel_atas;
+    }
+
+    if (Array.isArray(galeri.carousel_bawah) && galeri.carousel_bawah.length > 0) {
+      bawah = galeri.carousel_bawah;
+    }
+
+    setSlidesAtas(atas);
+    setSlidesBawah(bawah);
+    setIsLoaded(true);
   }, [data]);
 
-  // === Fungsi Navigasi Carousel 1 ===
-  const nextSlide1 = () => {
-    if (isTransitioning1) return;
-    setIsTransitioning1(true);
-    setCurrentSlide1((prev) => (prev === slidesAtas.length - 1 ? 0 : prev + 1));
-    setTimeout(() => setIsTransitioning1(false), 500);
-  };
+  const Carousel = ({ slides, currentSlide, setCurrentSlide, setDirection, title }) => {
+    if (!slides || slides.length === 0) {
+      return (
+        <div className="mb-12">
+          <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">{title}</h3>
+          <div className="h-80 rounded-2xl overflow-hidden shadow-xl bg-gray-100 flex items-center justify-center">
+            <p className="text-gray-500">Tidak ada gambar</p>
+          </div>
+        </div>
+      );
+    }
 
-  const prevSlide1 = () => {
-    if (isTransitioning1) return;
-    setIsTransitioning1(true);
-    setCurrentSlide1((prev) => (prev === 0 ? slidesAtas.length - 1 : prev - 1));
-    setTimeout(() => setIsTransitioning1(false), 500);
-  };
+    const nextSlide = () => {
+      setDirection("right");
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    };
 
-  // === Fungsi Navigasi Carousel 2 ===
-  const nextSlide2 = () => {
-    if (isTransitioning2) return;
-    setIsTransitioning2(true);
-    setCurrentSlide2((prev) => (prev === slidesBawah.length - 1 ? 0 : prev + 1));
-    setTimeout(() => setIsTransitioning2(false), 500);
-  };
-
-  const prevSlide2 = () => {
-    if (isTransitioning2) return;
-    setIsTransitioning2(true);
-    setCurrentSlide2((prev) => (prev === 0 ? slidesBawah.length - 1 : prev - 1));
-    setTimeout(() => setIsTransitioning2(false), 500);
-  };
-
-  // === Fungsi Pindah Langsung ===
-  const goToSlide1 = (index) => {
-    if (isTransitioning1 || index === currentSlide1) return;
-    setIsTransitioning1(true);
-    setCurrentSlide1(index);
-    setTimeout(() => setIsTransitioning1(false), 500);
-  };
-
-  const goToSlide2 = (index) => {
-    if (isTransitioning2 || index === currentSlide2) return;
-    setIsTransitioning2(true);
-    setCurrentSlide2(index);
-    setTimeout(() => setIsTransitioning2(false), 500);
-  };
-
-  // === Komponen Carousel Reusable ===
-  const Carousel = ({
-    slides,
-    currentSlide,
-    nextSlide,
-    prevSlide,
-    title,
-    isTransitioning,
-    goToSlide,
-  }) => {
-    if (!slides || slides.length === 0) return null;
+    const prevSlide = () => {
+      setDirection("left");
+      setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    };
 
     return (
       <div className="mb-12">
         <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">{title}</h3>
 
-        <div className="relative h-80 rounded-2xl overflow-hidden shadow-xl">
-          {/* Slides */}
-          {slides.map((slide, index) => (
+        <div className="relative h-80 rounded-2xl overflow-hidden shadow-xl border-2 bg-gray-50">
+          <div className="relative w-full h-full overflow-hidden">
             <div
-              key={index}
-              className={`absolute inset-0 transition-all duration-500 ease-in-out ${
-                index === currentSlide
-                  ? "opacity-100 transform translate-x-0"
-                  : "opacity-0 transform translate-x-4"
-              } ${isTransitioning ? "transitioning" : ""}`}
+              className={`flex transition-transform duration-700 ease-in-out`}
+              style={{
+                transform: `translateX(-${currentSlide * 100}%)`,
+              }}
             >
-              <img
-                src={slide}
-                alt={`${title} Slide ${index + 1}`}
-                className="w-full h-full object-cover"
-              />
+              {slides.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`${title}-${index}`}
+                  className="w-full h-80 flex-shrink-0 object-cover"
+                  loading="lazy"
+                />
+              ))}
             </div>
-          ))}
+          </div>
 
-          {/* Tombol Navigasi */}
-          <button
-            onClick={prevSlide}
-            disabled={isTransitioning}
-            className={`absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-900 rounded-full p-2 transition duration-300 ${
-              isTransitioning
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:scale-110"
-            }`}
-          >
-            <FaChevronLeft className="w-5 h-5" />
-          </button>
-
-          <button
-            onClick={nextSlide}
-            disabled={isTransitioning}
-            className={`absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white text-gray-900 rounded-full p-2 transition duration-300 ${
-              isTransitioning
-                ? "opacity-50 cursor-not-allowed"
-                : "hover:scale-110"
-            }`}
-          >
-            <FaChevronRight className="w-5 h-5" />
-          </button>
-
-          {/* Indikator Slide */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-            {slides.map((_, index) => (
+          {slides.length > 1 && (
+            <>
+              {/* Tombol kiri */}
               <button
-                key={index}
-                onClick={() => goToSlide(index)}
-                disabled={isTransitioning}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  index === currentSlide
-                    ? "bg-white scale-125"
-                    : "bg-white/50 hover:bg-white/80"
-                } ${
-                  isTransitioning ? "cursor-not-allowed" : "cursor-pointer"
+                onClick={prevSlide}
+                className="absolute top-1/2 left-3 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-transform duration-200 hover:scale-110"
+              >
+                <FaChevronLeft />
+              </button>
+
+              {/* Tombol kanan */}
+              <button
+                onClick={nextSlide}
+                className="absolute top-1/2 right-3 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-transform duration-200 hover:scale-110"
+              >
+                <FaChevronRight />
+              </button>
+            </>
+          )}
+        </div>
+
+        {slides.length > 1 && (
+          <div className="flex justify-center mt-3 space-x-2">
+            {slides.map((_, i) => (
+              <span
+                key={i}
+                className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                  i === currentSlide ? "bg-gray-800 w-5" : "bg-gray-400"
                 }`}
-              />
+              ></span>
             ))}
           </div>
-        </div>
-
-        {/* Counter */}
-        <div className="mt-2 text-gray-600 text-sm text-center">
-          {currentSlide + 1} / {slides.length}
-        </div>
+        )}
       </div>
     );
   };
+
+  if (!isLoaded) {
+    return (
+      <section
+        id="galeri"
+        className="relative min-h-screen flex items-center justify-center p-6 bg-white/50"
+      >
+        <div className="text-center">
+          <h2 className="text-4xl font-bold text-gray-900 mb-8">Galeri</h2>
+          <p>Loading galeri...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -173,33 +144,22 @@ export default function Galeri({ data }) {
       <div className="max-w-4xl w-full text-center">
         <h2 className="text-4xl font-bold text-gray-900 mb-8">Galeri</h2>
 
-        {/* Carousel 1 - ATAS */}
         <Carousel
           slides={slidesAtas}
           currentSlide={currentSlide1}
-          nextSlide={nextSlide1}
-          prevSlide={prevSlide1}
-          isTransitioning={isTransitioning1}
-          goToSlide={goToSlide1}
+          setCurrentSlide={setCurrentSlide1}
+          setDirection={setDirection1}
+          title="Galeri Atas"
         />
 
-        {/* Carousel 2 - BAWAH */}
         <Carousel
           slides={slidesBawah}
           currentSlide={currentSlide2}
-          nextSlide={nextSlide2}
-          prevSlide={prevSlide2}
-          isTransitioning={isTransitioning2}
-          goToSlide={goToSlide2}
+          setCurrentSlide={setCurrentSlide2}
+          setDirection={setDirection2}
+          title="Galeri Bawah"
         />
       </div>
-
-      {/* Tambahkan style agar transisi smooth */}
-      <style jsx>{`
-        .transitioning {
-          pointer-events: none;
-        }
-      `}</style>
     </section>
   );
 }

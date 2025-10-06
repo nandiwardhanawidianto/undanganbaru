@@ -1,9 +1,5 @@
 export default function Mempelai({ data }) {
   const hero = data?.heroInvitation || {};
-  
-  // Debug untuk lihat data gambar
-  console.log('🔍 Foto pria URL:', hero?.foto_pria);
-  console.log('🔍 Foto wanita URL:', hero?.foto_wanita);
 
   return (
     <section id="mempelai" className="relative min-h-screen">
@@ -33,11 +29,7 @@ export default function Mempelai({ data }) {
                   alt="Mempelai Pria"
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    console.error('❌ Error loading pria image:', hero?.foto_pria);
-                    e.target.src = '/placeholder-male.png'; // fallback image
-                  }}
-                  onLoad={(e) => {
-                    console.log('✅ Pria image loaded successfully');
+                    e.target.src = '/placeholder-male.png';
                   }}
                 />
               </div>
@@ -58,11 +50,7 @@ export default function Mempelai({ data }) {
                   alt="Mempelai Wanita"
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    console.error('❌ Error loading wanita image:', hero?.foto_wanita);
-                    e.target.src = '/placeholder-female.png'; // fallback image
-                  }}
-                  onLoad={(e) => {
-                    console.log('✅ Wanita image loaded successfully');
+                    e.target.src = '/placeholder-female.png';
                   }}
                 />
               </div>

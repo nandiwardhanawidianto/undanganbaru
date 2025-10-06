@@ -1,24 +1,12 @@
-import { useEffect, useState } from "react";
 import bgtanggal from "../assets/bg2.png";
 import { SiGooglemaps } from "react-icons/si";
 import { TbMapSearch } from "react-icons/tb";
 
 export default function Tanggal({ data }) {
-  const slug = data?.slug?.slug; // ambil slug string, contoh: "nandimia"
-  const [acaras, setAcaras] = useState([]);
+  // Langsung ambil acaras dari props data
+  const acaras = data?.acaras || [];
 
-  useEffect(() => {
-    if (!slug) return; // jangan fetch kalau slug belum ada
-
-    const baseUrl = "http://127.0.0.1:8000";
-
-    fetch(`${baseUrl}/api/slug/${slug}/listapi`)
-      .then((res) => res.json())
-      .then((data) => {
-        setAcaras(data.acaras || []);
-      })
-      .catch((err) => console.error("Gagal memuat data acara:", err));
-  }, [slug]);
+  console.log('🔍 Tanggal component - acaras:', acaras); // Debug
 
   if (acaras.length === 0) {
     return (

@@ -2,19 +2,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import bungaatas from "../assets/Bungaatas.png";
 
-/**
- * LoveGift.jsx
- * - Bisa menerima `data` sebagai prop (dari useInvitationData di App.jsx)
- * - Jika tidak ada prop `data`, akan mengambil slug dari URL dan fetch API
- * - Menangani bank_logo yang berupa full URL atau relative path
- * - Tampilkan maksimal 3 bank, minimal 1 (tampilan sesuai request)
- */
 export default function LoveGift({ data: propData }) {
-  const { slug } = useParams(); // optional, hanya kalau kita tidak kirim prop data
+  const { slug } = useParams();
   const [copied, setCopied] = useState(null);
   const [bankData, setBankData] = useState([]);
   const [loading, setLoading] = useState(Boolean(!propData));
-  const baseUrl = "http://127.0.0.1:8000"; // ganti kalau CMS mu beda
+  const baseUrl = "http://127.0.0.1:8000";
 
   const salinRekening = async (nomer, bank) => {
     try {
@@ -22,16 +15,14 @@ export default function LoveGift({ data: propData }) {
       setCopied(bank);
       setTimeout(() => setCopied(null), 2000);
     } catch (err) {
-      console.error("Gagal salin:", err);
+      // Error handling tanpa console.log
     }
   };
 
-  // helper: normalisasi data lovegift ke array
   const normalizeLoveGift = (raw) => {
     if (!raw) return [];
     if (Array.isArray(raw)) return raw;
     if (typeof raw === "object") return [raw];
-    // kadang server mengembalikan string JSON (tidak ideal) -> coba parse
     try {
       const parsed = JSON.parse(raw);
       return Array.isArray(parsed) ? parsed : (parsed ? [parsed] : []);
@@ -40,28 +31,22 @@ export default function LoveGift({ data: propData }) {
     }
   };
 
-  // helper: resolve logo path -> full URL or placeholder
   const resolveLogo = (logoPath) => {
     const placeholder = "https://via.placeholder.com/300x80?text=No+Logo";
     if (!logoPath) return placeholder;
     if (/^https?:\/\//i.test(logoPath) || logoPath.startsWith("//")) {
       return logoPath;
     }
-    // remove leading slashes
     const p = logoPath.replace(/^\/+/, "");
-    // if already contains 'storage', assume it's correct relative to baseUrl
     if (p.startsWith("storage/") || p.includes("storage/")) {
       return `${baseUrl}/${p}`;
     }
-    // if path looks like 'bank_logos/...' or 'bank-logos/...' -> prefix /storage/
     if (p.startsWith("bank_logos/") || p.startsWith("bank-logos/") || p.startsWith("banklogos/")) {
       return `${baseUrl}/storage/${p}`;
     }
-    // fallback: try baseUrl + '/' + p
     return `${baseUrl}/${p}`;
   };
 
-  // helper: safe field pick (meng-handle berbagai nama field dari API)
   const pick = (bank, ...keys) => {
     for (const k of keys) {
       if (bank && bank[k] !== undefined && bank[k] !== null) return bank[k];
@@ -70,7 +55,6 @@ export default function LoveGift({ data: propData }) {
   };
 
   useEffect(() => {
-    // jika prop data diberikan, gunakan itu dulu (preferred)
     if (propData) {
       const arr = normalizeLoveGift(propData.lovegift ?? propData.loveGift ?? propData.love_gift ?? propData.lovegift_list);
       setBankData(arr);
@@ -78,9 +62,8 @@ export default function LoveGift({ data: propData }) {
       return;
     }
 
-    // kalau tidak ada propData, ambil dari API menggunakan slug
     if (!slug) {
-      setBankData([]); // no slug -> nothing
+      setBankData([]);
       setLoading(false);
       return;
     }
@@ -96,7 +79,6 @@ export default function LoveGift({ data: propData }) {
         const arr = normalizeLoveGift(json.lovegift ?? json.loveGift ?? json.love_gift ?? json.lovegift_list);
         if (mounted) setBankData(arr);
       } catch (err) {
-        console.error("Gagal fetch lovegift:", err);
         if (mounted) setBankData([]);
       } finally {
         if (mounted) setLoading(false);
@@ -112,7 +94,7 @@ export default function LoveGift({ data: propData }) {
         <img 
           src={bungaatas} 
           alt="Bunga Atas" 
-          className="w-full max-w-4xl opacity-80"
+          className="w-full max-w-4xl opacity-80 z-0"
         />
       </div>
 
@@ -131,7 +113,6 @@ export default function LoveGift({ data: propData }) {
           ) : (
             <div className="flex flex-wrap justify-center gap-6">
               {bankData.slice(0, 3).map((bank, index) => {
-                // mapping fleksibel ke beberapa kemungkinan nama field dari API
                 const bankName = pick(bank, "bank_name", "nama_bank", "bank_name_api", "bank") || "Bank";
                 const bankLogoRaw = pick(bank, "bank_logo", "logo", "bank_logo_path", "logo_path");
                 const bankLogo = resolveLogo(bankLogoRaw);

@@ -1,3 +1,4 @@
+// src/App.jsx
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Counttanggal from './components/Counttanggal';
@@ -16,7 +17,7 @@ import useInvitationData from './hooks/useInvitationData';
 
 function App() {
   const [showModal, setShowModal] = useState(true);
-  const { data, loading, slug } = useInvitationData();
+  const { data, loading, error } = useInvitationData();
 
   const handleBukaUndangan = () => {
     setShowModal(false);
@@ -24,9 +25,12 @@ function App() {
   };
 
   if (loading) return <p className="text-center mt-10 text-white">Loading data...</p>;
+  if (error) return <p className="text-center mt-10 text-red-500">Error: {error}</p>;
+  if (!data) return <p className="text-center mt-10 text-white">No data available...</p>;
 
   return (
     <>
+      {/* Modal Awal */}
       {showModal && <ModalUndangan data={data} onBukaUndangan={handleBukaUndangan} />}
 
       {/* Background Global */}
@@ -35,6 +39,7 @@ function App() {
         style={{ backgroundImage: `url(${bgImage})` }}
       />
 
+      {/* Komponen Utama */}
       <Navbar />
       <MusicPlayer />
       <Hero data={data} />
@@ -43,7 +48,10 @@ function App() {
       <Tanggal data={data} />
       <Galeri data={data} />
       <Lovegift data={data} />
-      <Ucapan data={data} />
+
+      {/* Kirim slugListId untuk ucapan */}
+      <Ucapan slugId={data?.slug?.slug} />
+
       <Footer data={data} />
     </>
   );
