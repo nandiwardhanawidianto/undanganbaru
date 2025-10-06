@@ -3,6 +3,7 @@ import { FaChildren } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
 import { IoChatbubbles } from "react-icons/io5";
 import { IoMdPhotos } from "react-icons/io";
+import { FaGift } from "react-icons/fa6";
 
 export default function Navbar() {
     return (
@@ -30,6 +31,12 @@ export default function Navbar() {
           <a href="#galeri" className="flex flex-col items-center py-2">
             <IoMdPhotos className="text-xl" />
             <span className="text-xs">Galeri</span>
+          </a>
+        </li>
+         <li>
+          <a href="#lovegift" className="flex flex-col items-center py-2">
+            <FaGift className="text-xl" />
+            <span className="text-xs">Love Gift</span>
           </a>
         </li>
         <li>

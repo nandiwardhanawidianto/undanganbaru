@@ -1,32 +1,16 @@
-import { useState, useEffect } from "react";
-
-export default function Mempelai() {
-  const [data, setData] = useState({
-    foto_pengantin_1: "",
-    nama_pengantin_1: "",
-    deskripsi_pengantin_1: "",
-    foto_pengantin_2: "",
-    nama_pengantin_2: "",
-    deskripsi_pengantin_2: "",
-  });
-
-  useEffect(() => {
-    fetch("http://localhost:8080/api/mempelai")
-      .then((res) => res.json())
-      .then((result) => {
-        if (!result.error) {
-          setData(result);
-        }
-      })
-      .catch((err) => console.error("Fetch error:", err));
-  }, []);
+export default function Mempelai({ data }) {
+  const hero = data?.heroInvitation || {};
+  
+  // Debug untuk lihat data gambar
+  console.log('🔍 Foto pria URL:', hero?.foto_pria);
+  console.log('🔍 Foto wanita URL:', hero?.foto_wanita);
 
   return (
     <section id="mempelai" className="relative min-h-screen">
       {/* Overlay */}
       <div className="absolute inset-0" />
 
-      {/* Konten Mempelai */} 
+      {/* Konten Mempelai */}
       <div className="relative z-10 min-h-screen flex items-start justify-center pt-20 p-6">
         <div className="text-center text-black max-w-4xl">
           <h2 className="text-3xl font-bold mb-8">Mempelai</h2>
@@ -34,26 +18,33 @@ export default function Mempelai() {
           {/* Kotak Putih Transparan */}
           <div className="bg-white/40 backdrop-blur-sm rounded-[100px] p-8 border border-white/30 mb-12">
             <p className="text-sm leading-relaxed mt-3 font-display3">
-              Maha Suci Allah SWT yang telah menciptakan makhluk-Nya
-              berpasangan-pasangan. Tanpa mengurangi rasa hormat, dengan ini kami
-              bermaksud mengundang Bapak/Ibu/Saudara/i untuk hadir pada acara
-              pernikahan kami :
+              Maha Suci Allah SWT yang telah menciptakan makhluk-Nya berpasangan-pasangan.
+              Tanpa mengurangi rasa hormat, dengan ini kami bermaksud mengundang
+              Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan kami :
             </p>
+
             <br />
 
             {/* Mempelai Pria */}
             <div className="text-center mb-8">
               <div className="w-48 h-60 rounded-[100px] overflow-hidden border-4 border-ungu-500/50 shadow-lg mx-auto mb-4">
                 <img
-                  src={`http://localhost:8080/uploads/${data.foto_pengantin_1}`}
+                  src={hero?.foto_pria || ""}
                   alt="Mempelai Pria"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    console.error('❌ Error loading pria image:', hero?.foto_pria);
+                    e.target.src = '/placeholder-male.png'; // fallback image
+                  }}
+                  onLoad={(e) => {
+                    console.log('✅ Pria image loaded successfully');
+                  }}
                 />
               </div>
               <h3 className="text-2xl mb-2 font-bold text-ungu-500">
-                {data.nama_pengantin_1}
+                {hero.nama_panggilan_pria || "Nama Pria"}
               </h3>
-              <p className="text-lg">{data.deskripsi_pengantin_1}</p>
+              <p className="text-lg">{hero.orangtua_pria || "Orangtua Pria"}</p>
             </div>
 
             {/* & Tanda */}
@@ -63,15 +54,22 @@ export default function Mempelai() {
             <div className="text-center mt-8">
               <div className="w-48 h-60 rounded-[100px] overflow-hidden border-4 border-ungu-500/50 shadow-lg mx-auto mb-4">
                 <img
-                  src={`http://localhost:8080/uploads/${data.foto_pengantin_2}`}
+                  src={hero?.foto_wanita || ""}
                   alt="Mempelai Wanita"
                   className="w-full h-full object-cover"
+                  onError={(e) => {
+                    console.error('❌ Error loading wanita image:', hero?.foto_wanita);
+                    e.target.src = '/placeholder-female.png'; // fallback image
+                  }}
+                  onLoad={(e) => {
+                    console.log('✅ Wanita image loaded successfully');
+                  }}
                 />
               </div>
               <h3 className="text-2xl font-bold mb-2 text-ungu-500">
-                {data.nama_pengantin_2}
+                {hero.nama_panggilan_wanita || "Nama Wanita"}
               </h3>
-              <p className="text-lg">{data.deskripsi_pengantin_2}</p>
+              <p className="text-lg">{hero.orangtua_wanita || "Orangtua Wanita"}</p>
             </div>
           </div>
         </div>

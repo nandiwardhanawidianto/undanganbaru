@@ -4,22 +4,24 @@ import { useState, useEffect } from "react";
 
 export default function Counttanggal({ data }) {
   const acara = data?.acaras?.[0] || {}; // ambil acara pertama
-  const targetDateStr = acara?.tanggal_acara;
+  const targetDateStr = acara?.tanggal_acara; // PERBAIKAN: gunakan tanggal_acara
 
-// Ambil gambar background dari CMS
-let bgUrl = BG; // fallback default
-if (data?.galeri?.[0]?.carousel_atas) {
-  try {
-    const carouselAtas = JSON.parse(data.galeri[0].carousel_atas);
-    if (carouselAtas.length > 0) {
-      // base URL CMS kamu (ganti kalau sudah hosting)
-      const baseURL = import.meta.env.VITE_CMS_URL || "http://127.0.0.1:8000";
-      bgUrl = `${baseURL}/storage/${carouselAtas[0].replace(/\\/g, "/")}`;
+  // PERBAIKAN: Sekarang carousel_atas adalah ARRAY
+  let bgUrl = BG; // fallback default
+  
+  if (data?.galeri?.[0]?.carousel_atas) {
+    const carouselAtas = data.galeri[0].carousel_atas;
+    
+    // Cek jika carousel_atas adalah array dan tidak kosong
+    if (Array.isArray(carouselAtas) && carouselAtas.length > 0) {
+      // Ambil gambar pertama dari array
+      bgUrl = carouselAtas[0];
     }
-  } catch (err) {
-    console.error("Error parsing carousel_atas:", err);
+    // Fallback untuk handle data lama (string)
+    else if (typeof carouselAtas === 'string' && carouselAtas.startsWith('http')) {
+      bgUrl = carouselAtas;
+    }
   }
-}
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -29,11 +31,40 @@ if (data?.galeri?.[0]?.carousel_atas) {
   });
 
   useEffect(() => {
-    if (!targetDateStr) return;
+    // PERBAIKAN: Gunakan tanggal_acara dari acara
+    if (!targetDateStr) {
+      console.log('❌ No target date found, using fallback');
+      // Fallback ke tanggal default jika tidak ada
+      const fallbackDate = "2025-11-11";
+      const target = new Date(`${fallbackDate}T00:00:00`);
+      
+      const interval = setInterval(() => {
+        const now = new Date();
+        const diff = target - now;
+
+        if (diff <= 0) {
+          setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+          clearInterval(interval);
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        setTimeLeft({ days, hours, minutes, seconds });
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
 
     const target = new Date(`${targetDateStr}T00:00:00`);
 
-    if (isNaN(target)) return;
+    if (isNaN(target)) {
+      console.log('❌ Invalid target date:', targetDateStr);
+      return;
+    }
 
     const interval = setInterval(() => {
       const now = new Date();
@@ -55,6 +86,17 @@ if (data?.galeri?.[0]?.carousel_atas) {
 
     return () => clearInterval(interval);
   }, [targetDateStr]);
+
+  // Debug data
+  console.log('🔍 Counttanggal data:', {
+    acara: data?.acaras?.[0],
+    tanggal_acara: data?.acaras?.[0]?.tanggal_acara,
+    galeri: data?.galeri?.[0],
+    carousel_atas: data?.galeri?.[0]?.carousel_atas,
+    carousel_atas_type: typeof data?.galeri?.[0]?.carousel_atas,
+    carousel_atas_is_array: Array.isArray(data?.galeri?.[0]?.carousel_atas),
+    bgUrl: bgUrl
+  });
 
   return (
     <section
@@ -78,6 +120,13 @@ if (data?.galeri?.[0]?.carousel_atas) {
             src={bgUrl}
             alt="Card background"
             className="w-full h-full object-cover object-top"
+            onError={(e) => {
+              console.error('❌ Error loading countdown image:', bgUrl);
+              e.target.src = BG; // fallback ke default
+            }}
+            onLoad={(e) => {
+              console.log('✅ Countdown image loaded successfully:', bgUrl);
+            }}
           />
         </div>
 
@@ -85,15 +134,15 @@ if (data?.galeri?.[0]?.carousel_atas) {
         <div className="p-6">
           {/* Judul dari API */}
           <h2 className="text-base text-center text-black mb-4">
-            {data?.counting?.surat_arab}
+            {data?.counting?.surat_arab || "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم"}
           </h2>
 
           {/* Deskripsi dari API */}
           <p className="text-gray-700 text-center mb-6">
-            {data?.counting?.deskripsi_surat}
+            {data?.counting?.deskripsi_surat || "Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang"}
           </p>
           <p className="text-gray-700 text-center mb-6">
-            {data?.counting?.nama_surat}
+            {data?.counting?.nama_surat || "Al-Fatihah"}
           </p>
 
           {/* Countdown Box */}
