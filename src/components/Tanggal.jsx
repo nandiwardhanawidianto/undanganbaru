@@ -5,9 +5,6 @@ import { TbMapSearch } from "react-icons/tb";
 export default function Tanggal({ data }) {
   // Langsung ambil acaras dari props data
   const acaras = data?.acaras || [];
-
-  console.log('🔍 Tanggal component - acaras:', acaras); // Debug
-
   if (acaras.length === 0) {
     return (
       <section id="tanggal" className="p-10 text-center text-gray-500">

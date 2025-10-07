@@ -16,7 +16,6 @@ export default function useInvitationData() {
         setError(null);
 
         const API_URL = `http://localhost:8000/api/slug/${slug}/listapi`;
-        console.log("🔄 Fetching from:", API_URL);
 
         const response = await fetch(API_URL, {
           method: "GET",
@@ -29,7 +28,6 @@ export default function useInvitationData() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const result = await response.json();
-        console.log("✅ Full API Response:", result);
 
         if (result?.success && result?.data) {
           setData(result.data);
@@ -37,7 +35,6 @@ export default function useInvitationData() {
           throw new Error("Invalid response structure");
         }
       } catch (err) {
-        console.error("❌ Fetch error:", err);
         setError(err.message);
       } finally {
         setLoading(false);
