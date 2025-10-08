@@ -1,52 +1,52 @@
-import { FaHouseChimney } from "react-icons/fa6";
-import { FaChildren } from "react-icons/fa6";
+import { motion } from "framer-motion";
+import { FaHouseChimney, FaChildren, FaGift } from "react-icons/fa6";
 import { FaCalendarAlt } from "react-icons/fa";
-import { IoChatbubbles } from "react-icons/io5";
-import { IoMdPhotos } from "react-icons/io";
-import { FaGift } from "react-icons/fa6";
+import { IoChatbubblesOutline, IoImagesOutline } from "react-icons/io5";
 
 export default function Navbar() {
-    return (
-      <nav className="fixed bottom-0 w-full z-50 rounded-tl-2xl rounded-tr-2xl bg-ungu-500 text-white">
-        <ul className="flex justify-around">
-          <li>
-             <a href="#home" className="flex flex-col items-center py-2">
-                <FaHouseChimney className="text-xl" />
-                <span className="text-xs">Home</span>
-            </a>
-            </li>
-          <li>
-            <a href="#mempelai" className="flex flex-col items-center py-2">
-              <FaChildren className="text-xl" />
-              <span className="text-xs">Mempelai</span>
-             </a>
-          </li>
-         <li>
-          <a href="#tanggal" className="flex flex-col items-center py-2">
-            <FaCalendarAlt className="text-xl" />
-            <span className="text-xs">Tanggal</span>
-          </a>
-        </li>
-        <li>
-          <a href="#galeri" className="flex flex-col items-center py-2">
-            <IoMdPhotos className="text-xl" />
-            <span className="text-xs">Galeri</span>
-          </a>
-        </li>
-         <li>
-          <a href="#lovegift" className="flex flex-col items-center py-2">
-            <FaGift className="text-xl" />
-            <span className="text-xs">Love Gift</span>
-          </a>
-        </li>
-        <li>
-          <a href="#ucapan" className="flex flex-col items-center py-2">
-            <IoChatbubbles className="text-xl" />
-            <span className="text-xs">Ucapan</span>
-          </a>
-        </li>    
-        </ul>
-      </nav>
-    );
-  }
-  
+  const navItems = [
+    { id: "home", icon: <FaHouseChimney />, label: "Home" },
+    { id: "mempelai", icon: <FaChildren />, label: "Mempelai" },
+    { id: "tanggal", icon: <FaCalendarAlt />, label: "Tanggal" },
+    { id: "galeri", icon: <IoImagesOutline />, label: "Galeri" },
+    { id: "lovegift", icon: <FaGift />, label: "Love Gift" },
+    { id: "ucapan", icon: <IoChatbubblesOutline />, label: "Ucapan" },
+  ];
+
+  const handleScroll = (id) => {
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  return (
+    <nav className="fixed bottom-0 w-full z-50 rounded-t-2xl bg-ungu-500 text-white shadow-lg">
+      <ul className="flex justify-around">
+        {navItems.map((item, index) => (
+          <motion.li
+            key={index}
+            whileHover={{ y: -4, scale: 1.15 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <button
+              onClick={() => handleScroll(item.id)}
+              className="flex flex-col items-center py-2 focus:outline-none"
+            >
+              <motion.div
+                whileHover={{
+                  rotate: [0, -10, 10, -8, 8, 0],
+                  transition: { duration: 0.6 },
+                }}
+              >
+                {item.icon}
+              </motion.div>
+              <span className="text-xs mt-1">{item.label}</span>
+            </button>
+          </motion.li>
+        ))}
+      </ul>
+    </nav>
+  );
+}

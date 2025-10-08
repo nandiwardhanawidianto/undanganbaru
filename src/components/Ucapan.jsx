@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FaPaperPlane, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import axios from "axios";
 
@@ -11,28 +12,23 @@ export default function Ucapan({ slugId }) {
   const [daftarUcapan, setDaftarUcapan] = useState([]);
   const [loading, setLoading] = useState(false);
   const [sending, setSending] = useState(false);
-  
-  // State untuk pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
 
   const API_URL = `http://localhost:8000/api/guest-messages/${slugId}`;
 
-  // 🔹 Ambil daftar ucapan
+  // Ambil data awal
   const fetchUcapan = async () => {
     if (!slugId) return;
     setLoading(true);
     try {
       const res = await axios.get(API_URL);
       if (res.data.success) {
-        // Urutkan dari terbaru ke terlama berdasarkan created_at
-        const sortedUcapan = res.data.data.sort((a, b) => 
-          new Date(b.created_at) - new Date(a.created_at)
+        const sorted = res.data.data.sort(
+          (a, b) => new Date(b.created_at) - new Date(a.created_at)
         );
-        setDaftarUcapan(sortedUcapan);
-      } else {
-        setDaftarUcapan([]);
-      }
+        setDaftarUcapan(sorted);
+      } else setDaftarUcapan([]);
     } catch (err) {
       console.error("❌ Gagal memuat ucapan:", err);
     } finally {
@@ -44,60 +40,54 @@ export default function Ucapan({ slugId }) {
     fetchUcapan();
   }, [slugId]);
 
-  // 🔹 Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentUcapan = daftarUcapan.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(daftarUcapan.length / itemsPerPage);
 
-  // 🔹 Handle page change
   const nextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage((p) => p + 1);
   };
-
   const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage((p) => p - 1);
   };
 
-  // 🔹 Handle input
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((p) => ({ ...p, [name]: value }));
   };
 
-  // 🔹 Kirim ucapan baru
+  // Kirim ucapan baru dengan animasi langsung
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!slugId) return alert("Slug tidak ditemukan!");
-
     if (!formData.name || !formData.attendance || !formData.message)
       return alert("Semua field wajib diisi!");
 
     setSending(true);
     try {
-      const res = await axios.post(API_URL, {
-        name: formData.name,
-        attendance: formData.attendance,
-        message: formData.message,
-      });
-
+      const res = await axios.post(API_URL, formData);
       if (res.data.success) {
-        alert("🎉 Ucapan berhasil dikirim!");
+        const newUcapan = {
+          id: Date.now(), // temporary ID biar bisa langsung tampil
+          ...formData,
+          created_at: new Date().toISOString(),
+        };
+
+        // Tambahkan ke atas daftar tanpa refetch
+        setDaftarUcapan((prev) => {
+          const updated = [newUcapan, ...prev];
+          // jika lebih dari 6 di halaman pertama, potong yang terakhir
+          return updated.slice(0, itemsPerPage * totalPages);
+        });
+
         setFormData({ name: "", attendance: "", message: "" });
-        setCurrentPage(1); // Kembali ke halaman pertama setelah kirim ucapan baru
-        fetchUcapan(); // Refresh daftar
+        setCurrentPage(1);
       } else {
         alert(res.data.message || "Gagal mengirim ucapan.");
       }
     } catch (err) {
-      console.error("❌ Error saat mengirim ucapan:", err);
+      console.error("❌ Error saat kirim ucapan:", err);
       alert("Terjadi kesalahan koneksi ke server.");
     } finally {
       setSending(false);
@@ -111,10 +101,9 @@ export default function Ucapan({ slugId }) {
           Ucapan & Doa
         </h1>
 
-        {/* 📝 Form Ucapan */}
+        {/* Form */}
         <div className="bg-white border border-gray-200 rounded-2xl shadow-lg p-6 mb-10">
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Nama */}
             <div>
               <label className="block text-gray-700 mb-2 font-medium">Nama</label>
               <input
@@ -128,7 +117,6 @@ export default function Ucapan({ slugId }) {
               />
             </div>
 
-            {/* Kehadiran */}
             <div>
               <label className="block text-gray-700 mb-2 font-medium">Kehadiran</label>
               <select
@@ -145,7 +133,6 @@ export default function Ucapan({ slugId }) {
               </select>
             </div>
 
-            {/* Pesan */}
             <div>
               <label className="block text-gray-700 mb-2 font-medium">Ucapan & Doa</label>
               <textarea
@@ -159,7 +146,6 @@ export default function Ucapan({ slugId }) {
               />
             </div>
 
-            {/* Tombol Kirim */}
             <button
               type="submit"
               disabled={sending}
@@ -175,7 +161,7 @@ export default function Ucapan({ slugId }) {
           </form>
         </div>
 
-        {/* 💬 Daftar Ucapan */}
+        {/* Daftar Ucapan */}
         <div className="space-y-4">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">
             Ucapan dari Tamu
@@ -183,46 +169,49 @@ export default function Ucapan({ slugId }) {
 
           {loading ? (
             <p className="text-center text-gray-500">Memuat ucapan...</p>
-          ) : currentUcapan.length === 0 ? (
-            <p className="text-center text-gray-500 italic">
-              Belum ada ucapan 🕊️
-            </p>
+          ) : daftarUcapan.length === 0 ? (
+            <p className="text-center text-gray-500 italic">Belum ada ucapan 🕊️</p>
           ) : (
             <>
-              {/* List Ucapan */}
-              {currentUcapan.map((ucapan) => (
-                <div
-                  key={ucapan.id}
-                  className="bg-white border border-gray-200 rounded-2xl shadow p-5"
-                >
-                  <div className="flex justify-between items-start mb-3">
-                    <div>
-                      <h3 className="font-semibold text-gray-800 text-lg">
-                        {ucapan.name}
-                      </h3>
-                      <span
-                        className={`text-sm px-3 py-1 rounded-full ${
-                          ucapan.attendance === "Hadir"
-                            ? "bg-green-100 text-green-800"
-                            : ucapan.attendance === "Tidak Hadir"
-                            ? "bg-red-100 text-red-800"
-                            : "bg-yellow-100 text-yellow-800"
-                        }`}
-                      >
-                        {ucapan.attendance}
+              {/* Animasi Fade In / Out */}
+              <AnimatePresence mode="popLayout">
+                {currentUcapan.map((ucapan) => (
+                  <motion.div
+                    key={ucapan.id}
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -15 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    layout
+                    className="bg-white border border-gray-200 rounded-2xl shadow p-5"
+                  >
+                    <div className="flex justify-between items-start mb-3">
+                      <div>
+                        <h3 className="font-semibold text-gray-800 text-lg">{ucapan.name}</h3>
+                        <span
+                          className={`text-sm px-3 py-1 rounded-full ${
+                            ucapan.attendance === "Hadir"
+                              ? "bg-green-100 text-green-800"
+                              : ucapan.attendance === "Tidak Hadir"
+                              ? "bg-red-100 text-red-800"
+                              : "bg-yellow-100 text-yellow-800"
+                          }`}
+                        >
+                          {ucapan.attendance}
+                        </span>
+                      </div>
+                      <span className="text-gray-400 text-sm">
+                        {new Date(ucapan.created_at).toLocaleString("id-ID")}
                       </span>
                     </div>
-                    <span className="text-gray-400 text-sm">
-                      {new Date(ucapan.created_at).toLocaleString("id-ID")}
-                    </span>
-                  </div>
-                  <p className="text-gray-700 leading-relaxed italic">
-                    “{ucapan.message}”
-                  </p>
-                </div>
-              ))}
+                    <p className="text-gray-700 leading-relaxed italic">
+                      “{ucapan.message}”
+                    </p>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
 
-              {/* Pagination Controls */}
+              {/* Pagination */}
               {totalPages > 1 && (
                 <div className="flex justify-center items-center gap-4 mt-8">
                   <button
@@ -234,14 +223,11 @@ export default function Ucapan({ slugId }) {
                         : "bg-ungu-500 text-white hover:bg-ungu-600"
                     }`}
                   >
-                    <FaChevronLeft />
-                    Sebelumnya
+                    <FaChevronLeft /> Sebelumnya
                   </button>
-
                   <span className="text-gray-700 font-medium">
                     Halaman {currentPage} dari {totalPages}
                   </span>
-
                   <button
                     onClick={nextPage}
                     disabled={currentPage === totalPages}
@@ -251,8 +237,7 @@ export default function Ucapan({ slugId }) {
                         : "bg-ungu-500 text-white hover:bg-ungu-600"
                     }`}
                   >
-                    Selanjutnya
-                    <FaChevronRight />
+                    Selanjutnya <FaChevronRight />
                   </button>
                 </div>
               )}

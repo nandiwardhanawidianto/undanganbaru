@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Galeri({ data }) {
   const [slidesAtas, setSlidesAtas] = useState([]);
@@ -23,31 +24,51 @@ export default function Galeri({ data }) {
     }
 
     const galeri = data.galeri[0];
-    let atas = [];
-    let bawah = [];
-
-    if (Array.isArray(galeri.carousel_atas) && galeri.carousel_atas.length > 0) {
-      atas = galeri.carousel_atas;
-    }
-
-    if (Array.isArray(galeri.carousel_bawah) && galeri.carousel_bawah.length > 0) {
-      bawah = galeri.carousel_bawah;
-    }
+    const atas = Array.isArray(galeri.carousel_atas) ? galeri.carousel_atas : [];
+    const bawah = Array.isArray(galeri.carousel_bawah) ? galeri.carousel_bawah : [];
 
     setSlidesAtas(atas);
     setSlidesBawah(bawah);
     setIsLoaded(true);
   }, [data]);
 
-  const Carousel = ({ slides, currentSlide, setCurrentSlide, setDirection, title }) => {
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.15, duration: 0.7, ease: "easeOut" },
+    }),
+  };
+
+  const slideVariants = {
+    enter: (direction) => ({
+      x: direction === "right" ? 100 : -100,
+      opacity: 0,
+    }),
+    center: { x: 0, opacity: 1 },
+    exit: (direction) => ({
+      x: direction === "right" ? -100 : 100,
+      opacity: 0,
+    }),
+  };
+
+  const Carousel = ({ slides, currentSlide, setCurrentSlide, setDirection, title, index }) => {
     if (!slides || slides.length === 0) {
       return (
-        <div className="mb-12">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeUp}
+          custom={index}
+          className="mb-12"
+        >
           <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">{title}</h3>
           <div className="h-80 rounded-2xl overflow-hidden shadow-xl bg-gray-100 flex items-center justify-center">
             <p className="text-gray-500">Tidak ada gambar</p>
           </div>
-        </div>
+        </motion.div>
       );
     }
 
@@ -62,46 +83,56 @@ export default function Galeri({ data }) {
     };
 
     return (
-      <div className="mb-12">
-        <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">{title}</h3>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={fadeUp}
+        custom={index}
+        className="mb-12"
+      >
+        <motion.h3
+          className="text-2xl font-bold text-gray-900 mb-4 text-center"
+          variants={fadeUp}
+          custom={index + 0.2}
+        >
+          {title}
+        </motion.h3>
 
         <div className="relative h-80 rounded-2xl overflow-hidden shadow-xl border-2 bg-gray-50">
-          <div className="relative w-full h-full overflow-hidden">
-            <div
-              className={`flex transition-transform duration-700 ease-in-out`}
-              style={{
-                transform: `translateX(-${currentSlide * 100}%)`,
-              }}
-            >
-              {slides.map((img, index) => (
-                <img
-                  key={index}
-                  src={img}
-                  alt={`${title}-${index}`}
-                  className="w-full h-80 flex-shrink-0 object-cover"
-                  loading="lazy"
-                />
-              ))}
-            </div>
-          </div>
+          <AnimatePresence initial={false} custom={direction1}>
+            <motion.img
+              key={currentSlide}
+              src={slides[currentSlide]}
+              custom={direction1}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="absolute w-full h-80 object-cover"
+            />
+          </AnimatePresence>
 
           {slides.length > 1 && (
             <>
-              {/* Tombol kiri */}
-              <button
+              <motion.button
                 onClick={prevSlide}
-                className="absolute top-1/2 left-3 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-transform duration-200 hover:scale-110"
+                className="absolute top-1/2 left-3 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg"
+                whileHover={{ scale: 1.2, boxShadow: "0 0 10px rgba(123,31,162,0.3)" }}
+                whileTap={{ scale: 0.95 }}
               >
                 <FaChevronLeft />
-              </button>
+              </motion.button>
 
-              {/* Tombol kanan */}
-              <button
+              <motion.button
                 onClick={nextSlide}
-                className="absolute top-1/2 right-3 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg transition-transform duration-200 hover:scale-110"
+                className="absolute top-1/2 right-3 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg"
+                whileHover={{ scale: 1.2, boxShadow: "0 0 10px rgba(123,31,162,0.3)" }}
+                whileTap={{ scale: 0.95 }}
               >
                 <FaChevronRight />
-              </button>
+              </motion.button>
             </>
           )}
         </div>
@@ -109,16 +140,19 @@ export default function Galeri({ data }) {
         {slides.length > 1 && (
           <div className="flex justify-center mt-3 space-x-2">
             {slides.map((_, i) => (
-              <span
+              <motion.span
                 key={i}
                 className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                  i === currentSlide ? "bg-gray-800 w-5" : "bg-gray-400"
+                  i === currentSlide ? "bg-ungu-500 w-5" : "bg-gray-400"
                 }`}
-              ></span>
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
+              ></motion.span>
             ))}
           </div>
         )}
-      </div>
+      </motion.div>
     );
   };
 
@@ -142,14 +176,21 @@ export default function Galeri({ data }) {
       className="relative min-h-screen flex items-center justify-center p-6 bg-white/50"
     >
       <div className="max-w-4xl w-full text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-8">Galeri</h2>
+        <motion.h2
+          className="text-4xl font-bold text-gray-900 mb-8"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          Galeri
+        </motion.h2>
 
         <Carousel
           slides={slidesAtas}
           currentSlide={currentSlide1}
           setCurrentSlide={setCurrentSlide1}
           setDirection={setDirection1}
-          title="Galeri Atas"
+          index={1}
         />
 
         <Carousel
@@ -157,7 +198,7 @@ export default function Galeri({ data }) {
           currentSlide={currentSlide2}
           setCurrentSlide={setCurrentSlide2}
           setDirection={setDirection2}
-          title="Galeri Bawah"
+          index={2}
         />
       </div>
     </section>
