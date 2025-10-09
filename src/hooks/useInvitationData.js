@@ -10,15 +10,15 @@ export default function useInvitationData() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (slug === "default") return;
+
     const fetchData = async () => {
       try {
         setLoading(true);
         setError(null);
 
         const API_URL = `http://localhost:8000/api/slug/${slug}/listapi`;
-
         const response = await fetch(API_URL, {
-          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -26,7 +26,6 @@ export default function useInvitationData() {
         });
 
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
         const result = await response.json();
 
         if (result?.success && result?.data) {
@@ -35,20 +34,21 @@ export default function useInvitationData() {
           throw new Error("Invalid response structure");
         }
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Fetch failed");
       } finally {
         setLoading(false);
       }
     };
 
-    if (slug !== "default") fetchData();
+    fetchData();
   }, [slug]);
 
   return {
+    slug,
     data,
     loading,
     error,
-    slug,
+    theme: data?.slug?.theme || "Default", // <-- ambil theme langsung di sini
     heroData: data?.heroInvitation || null,
     acarasData: data?.acaras || [],
     galeriData: data?.galeri || [],

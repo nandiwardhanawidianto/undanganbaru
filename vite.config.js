@@ -5,4 +5,7 @@ import flowbiteReact from "flowbite-react/plugin/vite";
 
 export default defineConfig({
   plugins: [svgr(), react(), flowbiteReact()],
+  server: {
+    historyApiFallback: true, // biar route seperti /reva diarahkan ke index.html
+  },
 });
