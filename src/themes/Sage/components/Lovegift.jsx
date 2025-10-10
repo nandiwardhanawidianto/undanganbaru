@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import bungaatas from "../assets/Bungaatas.png";
+import bglovegift from "../assets/bg_all.png";
 
 export default function LoveGift({ data: propData }) {
   const { slug } = useParams();
@@ -106,10 +106,15 @@ export default function LoveGift({ data: propData }) {
   };
 
   return (
-    <section id="lovegift" className="relative py-16 bg-gradient-to-b from-ungu-500 to-white overflow-hidden">
-      <div className="absolute top-0 left-0 w-full flex justify-center z-0 mb-5">
-        <img src={bungaatas} alt="Bunga Atas" className="w-full max-w-4xl opacity-80 z-0" />
-      </div>
+    <section id="lovegift"
+      className="relative py-16 overflow-hidden"
+      style={{ 
+        backgroundImage: `url(${bglovegift})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
 
       <div className="container mx-auto px-4 mt-28 relative z-10">
         <motion.div
@@ -118,8 +123,8 @@ export default function LoveGift({ data: propData }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="font-estetik text-5xl mb-6">Love Gift</h1>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+          <h1 className="font-estetik text-5xl mb-6 text-coklat-500">Love Gift</h1>
+          <p className="text-coklat-500 mb-8 max-w-2xl mx-auto">
             Tanpa mengurangi rasa hormat, bagi anda yang ingin memberikan tanda kasih untuk kami,
             dapat melalui :
           </p>

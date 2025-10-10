@@ -83,14 +83,14 @@ export default function Counttanggal({ data }) {
 
         <div className="p-6 relative z-10">
           <h2 className="text-base text-center text-black mb-4">
-            {data?.counting?.surat_arab || "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم"}
+            {data?.counting?.surat_arab || "وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةًۗ اِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ"}
           </h2>
           <p className="text-gray-700 text-center mb-6">
             {data?.counting?.deskripsi_surat ||
-              "Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang"}
+              "“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."}
           </p>
           <p className="text-gray-700 text-center mb-6">
-            {data?.counting?.nama_surat || "Al-Fatihah"}
+            {data?.counting?.nama_surat || "Al-(Q.S. Ar-Rum: 21)"}
           </p>
 
           {/* COUNTER */}

@@ -3,8 +3,7 @@ import React from "react";
 
 // Import semua tema yang sudah ada
 import VioletApp from "./themes/Violet/App";
-// Kalau nanti kamu punya tema lain, tinggal tambahkan di sini:
-// import GreenApp from "./themes/Green/App";
+import Sageapp from "./themes/Sage/App";
 // import GoldApp from "./themes/Gold/App";
 
 export default function ThemeSelector({ data }) {
@@ -13,9 +12,8 @@ export default function ThemeSelector({ data }) {
     case "violet":
       return <VioletApp data={data} />;
 
-    // contoh tambahan jika nanti ada theme baru
-    // case "green":
-    //   return <GreenApp data={data} />;
+    case "sage":
+      return <Sageapp data={data} />;
     // case "gold":
     //   return <GoldApp data={data} />;
 

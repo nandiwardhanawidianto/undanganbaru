@@ -95,9 +95,9 @@ export default function Ucapan({ slugId }) {
   };
 
   return (
-    <section id="ucapan" className="py-16 bg-gradient-to-b from-white to-gray-50">
+    <section id="ucapan" className="py-16 bg-gradient-to-b from-hijau-500 to-gray-50">
       <div className="container mx-auto px-4 max-w-3xl">
-        <h1 className="font-estetik text-4xl text-center mb-10 text-ungu-600">
+        <h1 className="font-estetik text-4xl text-center mb-10 text-white">
           Ucapan & Doa
         </h1>
 
@@ -152,7 +152,7 @@ export default function Ucapan({ slugId }) {
               className={`flex items-center justify-center gap-2 w-full py-3 rounded-lg text-white font-semibold transition duration-300 ${
                 sending
                   ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-ungu-500 hover:bg-ungu-600"
+                  : "bg-hijau-500 hover:bg-hijau-600"
               }`}
             >
               <FaPaperPlane className="text-sm" />

@@ -6,7 +6,7 @@ export default function Mempelai({ data }) {
   return (
     <section id="mempelai" className="relative min-h-screen">
       {/* Overlay */}
-      <div className="absolute inset-0" />
+      <div className="absolute inset-0 bg-coklat-500/10" />
 
       {/* Konten Mempelai */}
       <div className="relative z-10 min-h-screen flex items-start justify-center pt-20 p-6">
@@ -26,14 +26,6 @@ export default function Mempelai({ data }) {
             Mempelai
           </motion.h2>
 
-          {/* Kotak Putih Transparan */}
-          <motion.div
-            className="bg-white/40 backdrop-blur-sm rounded-[100px] p-8 border border-white/30 mb-12"
-            initial={{ opacity: 0, scale: 0.96 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            viewport={{ once: true }}
-          >
             <motion.p
               className="text-sm leading-relaxed mt-3 font-display3"
               initial={{ opacity: 0, y: 20 }}
@@ -49,21 +41,21 @@ export default function Mempelai({ data }) {
 
             {/* Mempelai Pria */}
             <motion.div
-              className="text-center mb-8"
+              className="text-center mb-8 relative"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
             >
               <motion.div
-                className="w-48 h-60 rounded-[100px] overflow-hidden border-4 border-ungu-500/50 shadow-lg mx-auto mb-4"
+                className="w-48 h-78 overflow-hidden border-4 border-coklat-500 shadow-md shadow-black mx-auto mb-4 rounded-t-[100px] rounded-b-none relative"
                 whileHover={{ scale: 1.04 }}
                 transition={{ type: "spring", stiffness: 200 }}
               >
                 <motion.img
                   src={hero?.foto_pria || ""}
                   alt="Mempelai Pria"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover relative z-10"
                   onError={(e) => {
                     e.target.src = "/placeholder-male.png";
                   }}
@@ -74,7 +66,7 @@ export default function Mempelai({ data }) {
                 />
               </motion.div>
               <motion.h3
-                className="text-2xl mb-2 font-bold text-ungu-500"
+                className="text-3xl mb-2 font-bold text-coklat-500"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.3, duration: 0.8 }}
@@ -95,7 +87,7 @@ export default function Mempelai({ data }) {
 
             {/* & Tanda */}
             <motion.div
-              className="text-5xl font-cursive font-bold text-ungu-600"
+              className="text-5xl font-cursive font-bold text-coklat-500"
               animate={{ scale: [1, 1.08, 1] }}
               transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
             >
@@ -104,21 +96,21 @@ export default function Mempelai({ data }) {
 
             {/* Mempelai Wanita */}
             <motion.div
-              className="text-center mt-8"
+              className="text-center mt-8 relative"
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               whileInView={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ delay: 1.6, duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
             >
               <motion.div
-                className="w-48 h-60 rounded-[100px] overflow-hidden border-4 border-ungu-500/50 shadow-lg mx-auto mb-4"
+                className="w-48 h-78 overflow-hidden border-4 border-coklat-500 shadow-md shadow-black mx-auto mb-4 rounded-t-[100px] rounded-b-none relative"
                 whileHover={{ scale: 1.04 }}
                 transition={{ type: "spring", stiffness: 200 }}
               >
                 <motion.img
                   src={hero?.foto_wanita || ""}
                   alt="Mempelai Wanita"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover relative z-10"
                   onError={(e) => {
                     e.target.src = "/placeholder-female.png";
                   }}
@@ -129,7 +121,7 @@ export default function Mempelai({ data }) {
                 />
               </motion.div>
               <motion.h3
-                className="text-2xl font-bold mb-2 text-ungu-500"
+                className="text-3xl font-bold mb-2 text-coklat-500"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2, duration: 0.8 }}
@@ -148,7 +140,6 @@ export default function Mempelai({ data }) {
               </motion.p>
             </motion.div>
           </motion.div>
-        </motion.div>
       </div>
     </section>
   );

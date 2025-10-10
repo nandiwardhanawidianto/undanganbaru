@@ -1,7 +1,8 @@
-import bgtanggal from "../assets/bg2.png";
+import bgtanggal from "../assets/bg_all.png";
 import { SiGooglemaps } from "react-icons/si";
 import { TbMapSearch } from "react-icons/tb";
 import { motion } from "framer-motion";
+import BG from "../assets/BG.png";
 
 export default function Tanggal({ data }) {
   const acaras = data?.acaras || [];
@@ -26,7 +27,13 @@ export default function Tanggal({ data }) {
   return (
     <section
       id="tanggal"
-      className="relative min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-b from-ungu-500 to-white"
+      className="relative min-h-screen-68 flex flex-col items-center justify-center p-6"
+      style={{ 
+        backgroundImage: `url(${BG})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
     >
       <motion.div
         className="flex flex-col gap-10 w-full max-w-4xl"
@@ -38,7 +45,7 @@ export default function Tanggal({ data }) {
         {acaras.map((acara, i) => (
           <motion.div
             key={acara.id}
-            className="relative w-full h-90 rounded-[150px] overflow-hidden border-ungu-500 border-4 shadow-lg hover:shadow-2xl transition-all duration-500"
+            className="relative w-full h-[500px] rounded-[150px] overflow-hidden border-coklat-500 border-4 shadow-lg hover:shadow-2xl transition-all duration-500"
             initial={{ opacity: 0, y: 60, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -56,7 +63,7 @@ export default function Tanggal({ data }) {
 
             <div className="absolute inset-0 flex items-center justify-center p-8">
               <motion.div
-                className="text-center text-ungu-500"
+                className="text-center text-coklat-500"
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -96,7 +103,7 @@ export default function Tanggal({ data }) {
                     transition={{ duration: 0.6, delay: 0.8 }}
                     viewport={{ once: true }}
                   >
-                    <SiGooglemaps className="w-8 h-8 mb-2 text-ungu-600" />
+                    <SiGooglemaps className="w-8 h-8 mb-2 text-coklat-600" />
                   </motion.div>
                   Bertempat di<br />
                   {acara.alamat_acara}
@@ -112,7 +119,7 @@ export default function Tanggal({ data }) {
                       href={acara.link_acara}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 bg-ungu-500 text-white font-medium py-2 px-6 rounded-full shadow-lg hover:bg-ungu-600 hover:shadow-xl transition-all"
+                      className="flex items-center justify-center gap-2 bg-coklat-500 text-white font-medium py-2 px-6 rounded-full shadow-lg hover:bg-coklat-600 hover:shadow-xl transition-all"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.98 }}
                     >

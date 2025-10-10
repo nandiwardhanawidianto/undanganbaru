@@ -13,13 +13,21 @@ export default {
     extend: {
       colors: {
       gold: "#f3c55c",
-      purple: "#987DB9",
+      coklat:{
+        500:"#927B48",
+        600: "#715B2B"
+      },
+      hijau: {
+          500: "#A2C8A2",
+          600: "#4B7B54",
+          900: '#79987F',
+        },
       ungu:{
-          500: '#8776A2',
-          600: '#3A225E',
+          500: '#BFB0D6',
+          600: '#8776A2',
           700: '#7e22ce',
           800: '#6b21a8',
-          900: '#581c87',}
+          900: '#B3D7BA',}
       }
     },
     fontFamily: {
@@ -28,6 +36,7 @@ export default {
       sans: ['Metal', 'sans-serif'],
       display2: ['DM Sans', 'sans-serif'],
       display3: ['Metal', 'sans-serif'],
+      judul:['Josefin Sans', 'sans-serif'],
   },
   plugins: [
     require('flowbite/plugin')

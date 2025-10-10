@@ -41,7 +41,7 @@ export default function Hero({ data }) {
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
             {/* ✨ The Wedding Of */}
             <motion.h1
-              className="text-3xl md:text-4xl text-purple mb-4"
+              className="text-3xl md:text-4xl text-ungu-500 mb-4"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 1.6, duration: 1, ease: "easeInOut" }}

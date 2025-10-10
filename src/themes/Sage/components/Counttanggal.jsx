@@ -1,5 +1,5 @@
 import BG from "/fotowedding1.png";
-import bungaatas from "../assets/Bungaatas.png";
+import bgcount from "../assets/bgcounttanggal.png";
 import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
 
@@ -42,16 +42,12 @@ export default function Counttanggal({ data }) {
   return (
     <section
       id="counttanggal"
-      className="relative min-h-screen flex items-center justify-center p-6 bg-gradient-to-b from-ungu-500 to-white overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center p-6 overflow-hidden"
+      style={{ backgroundImage: `url(${bgcount})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
     >
-      {/* bunga atas */}
-      <div className="absolute top-0 left-0 w-full flex justify-center z-0">
-        <img src={bungaatas} alt="Bunga Atas" className="w-full max-w-4xl opacity-80" />
-      </div>
-
       {/* card utama */}
       <motion.div
-        className="relative z-10 max-w-md w-full bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden mt-32 mb-12 shimmer-card"
+        className="relative z-10 max-w-[360px] w-full bg-white/90 backdrop-blur-sm rounded-t-full shadow-xl overflow-hidden shimmer-card"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
@@ -72,25 +68,26 @@ export default function Counttanggal({ data }) {
           }}
         />
 
-        <div className="w-full h-96 relative">
+        {/* Gambar dengan aspect ratio vertikal */}
+        <div className="w-full h-80 relative">
           <img
             src={bgUrl}
             alt="Card background"
-            className="w-full h-full object-cover object-top"
+            className="w-full h-full object-cover"
             onError={(e) => (e.currentTarget.src = BG)}
           />
         </div>
 
         <div className="p-6 relative z-10">
           <h2 className="text-base text-center text-black mb-4">
-            {data?.counting?.surat_arab || "بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم"}
+            {data?.counting?.surat_arab || "وَمِنْ اٰيٰتِهٖٓ اَنْ خَلَقَ لَكُمْ مِّنْ اَنْفُسِكُمْ اَزْوَاجًا لِّتَسْكُنُوْٓا اِلَيْهَا وَجَعَلَ بَيْنَكُمْ مَّوَدَّةً وَّرَحْمَةًۗ اِنَّ فِيْ ذٰلِكَ لَاٰيٰتٍ لِّقَوْمٍ يَّتَفَكَّرُوْنَ"}
           </h2>
           <p className="text-gray-700 text-center mb-6">
             {data?.counting?.deskripsi_surat ||
-              "Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang"}
+              "“Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."}
           </p>
           <p className="text-gray-700 text-center mb-6">
-            {data?.counting?.nama_surat || "Al-Fatihah"}
+            {data?.counting?.nama_surat || "Al-(Q.S. Ar-Rum: 21)"}
           </p>
 
           {/* COUNTER */}
@@ -138,7 +135,7 @@ function CounterBox({ value, label }) {
       }}
     >
       <motion.div
-        className="bg-ungu-500 border border-white/20 rounded-lg shadow-md p-3 min-w-[70px] backdrop-blur-sm"
+        className="bg-hijau-500 border border-white/20 rounded-lg shadow-md p-3 min-w-[70px] backdrop-blur-sm"
         transition={{ type: "spring", stiffness: 250, damping: 20 }}
       >
         <div className="text-xl font-bold text-white">
