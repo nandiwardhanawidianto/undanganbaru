@@ -1,7 +1,7 @@
+---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/royq1172/public_html/repo/
-    - /bin/rm -rf $DEPLOYPATH/*
-    - npm install
-    - npm run build
+    - export DEPLOYPATH=/home/royq1172/public_html/
+    - /opt/cpanel/ea-nodejs20/bin/npm ci --legacy-peer-deps
+    - /opt/cpanel/ea-nodejs20/bin/npm run build
     - /bin/cp -R dist/* $DEPLOYPATH
