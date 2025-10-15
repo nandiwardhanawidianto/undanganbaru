@@ -14,9 +14,7 @@ export default function Ucapan({ slugId }) {
   const [sending, setSending] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(6);
-
-  const API_URL = `http://localhost:8000/api/guest-messages/${slugId}`;
-
+  const API_URL = `https://cms.royalweddinginvitiation.com/api/guest-messages/${slugId}`;
   // Ambil data awal
   const fetchUcapan = async () => {
     if (!slugId) return;
