@@ -1,6 +1,7 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/royq1172/public_html
-    - npm install
-    - npm run build
-    - /bin/cp -R dist/* $DEPLOYPATH
+    - cd /home/royq1172/repositories/undanganbaru
+    - /usr/local/bin/npm install
+    - /usr/local/bin/npm run build
+    - /bin/cp -R dist/* $DEPLOYPATH/
