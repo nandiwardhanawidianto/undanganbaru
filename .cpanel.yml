@@ -1,6 +1,6 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/royq1172/public_html/repo-react/
+    - export DEPLOYPATH=/home/royq1172/public_html/repo/
     - /bin/rm -rf $DEPLOYPATH/*
     - npm install
     - npm run build
