@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/royq1172/public_html/
+    - npm ci --legacy-peer-deps
+    - npm run build
+    - /bin/cp -R dist/* $DEPLOYPATH
