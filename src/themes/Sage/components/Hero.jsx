@@ -84,7 +84,7 @@ export default function Hero({ data }) {
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
             {/* The Wedding Of */}
             <motion.h1
-              className="text-lg md:text-2xl text-white mb-4 font-semibold tracking-wider font-judul uppercase"
+              className="text-lg md:text-2xl text-coklat-500 mb-4 font-semibold tracking-wider font-judul uppercase"
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.6, duration: 1, ease: "easeInOut" }}
@@ -94,7 +94,7 @@ export default function Hero({ data }) {
 
             {/* Nama Pengantin */}
             <motion.div
-              className="flex flex-col items-center text-center text-4xl italic font-display text-white gap-y-2 mb-6"
+              className="flex flex-col items-center text-center text-4xl italic font-display text-coklat-500 gap-y-2 mb-6"
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.9, duration: 1.5, ease: "easeInOut" }}
@@ -106,7 +106,7 @@ export default function Hero({ data }) {
 
             {/* Tanggal Acara */}
             <motion.div
-              className="text-2xl italic font-display text-white mb-8"
+              className="text-2xl italic font-display text-coklat-500 mb-8"
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 1.2, duration: 0.8, ease: "easeInOut" }}
@@ -117,7 +117,7 @@ export default function Hero({ data }) {
             {/* Tombol Save the Date */}
             <motion.a
               href="#"
-              className="inline-flex items-center gap-3  text-white px-8 py-2 rounded-full font-bold hover:scale-105 transition-all duration-300 shadow-xl shadow-ungu-900/50 border-2 border-white hover:bg-ungu-900"
+              className="inline-flex items-center gap-3  text-coklat-500 px-8 py-2 rounded-full font-bold hover:scale-105 transition-all duration-300 shadow-xl shadow-ungu-900/50 border-2 border-coklat-500 hover:bg-white"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5, duration: 0.6, ease: "easeInOut" }}
