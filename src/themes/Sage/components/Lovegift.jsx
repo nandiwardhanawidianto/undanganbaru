@@ -174,7 +174,7 @@ export default function LoveGift({ data: propData }) {
                       variants={buttonVariants}
                       whileHover="hover"
                       whileTap="tap"
-                      className="text-white px-4 py-2 rounded-full text-sm transition duration-300"
+                      className=" bg-hijau-500 text-white px-4 py-2 rounded-full text-sm transition duration-300"
                     >
                       {copied === bankName ? "Tersalin!" : "Salin No. Rekening"}
                     </motion.button>
