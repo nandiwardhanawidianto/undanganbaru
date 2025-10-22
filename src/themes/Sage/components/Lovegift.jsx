@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import bglovegift from "../assets/bg_all.png";
+import bglovegift from "../assets/UndanganHIjauBG-01.png";
 
 export default function LoveGift({ data: propData }) {
   const { slug } = useParams();
   const [copied, setCopied] = useState(null);
   const [bankData, setBankData] = useState([]);
   const [loading, setLoading] = useState(Boolean(!propData));
-  const baseUrl = "http://127.0.0.1:8000";
 
   const salinRekening = async (nomer, bank) => {
     try {
@@ -101,13 +100,13 @@ export default function LoveGift({ data: propData }) {
   };
 
   const buttonVariants = {
-    hover: { scale: 1.05, backgroundColor: "#9333EA", color: "#fff" },
+    hover: { scale: 1.05, backgroundColor: "#767B6F", color: "#959E89" },
     tap: { scale: 0.95 },
   };
 
   return (
     <section id="lovegift"
-      className="relative py-16 overflow-hidden"
+      className="relative overflow-hidden"
       style={{ 
         backgroundImage: `url(${bglovegift})`,
         backgroundSize: 'cover',
@@ -116,15 +115,15 @@ export default function LoveGift({ data: propData }) {
       }}
     >
 
-      <div className="container mx-auto px-4 mt-28 relative z-10">
+      <div className="container mx-auto px-4 mt-5 relative z-10 py-4">
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="font-estetik text-5xl mb-6 text-coklat-500">Love Gift</h1>
-          <p className="text-coklat-500 mb-8 max-w-2xl mx-auto">
+          <h1 className="font-estetik text-5xl mb-6 text-hijau-800">Love Gift</h1>
+          <p className="text-hijau-800 mb-8 max-w-2xl mx-auto">
             Tanpa mengurangi rasa hormat, bagi anda yang ingin memberikan tanda kasih untuk kami,
             dapat melalui :
           </p>
@@ -175,7 +174,7 @@ export default function LoveGift({ data: propData }) {
                       variants={buttonVariants}
                       whileHover="hover"
                       whileTap="tap"
-                      className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-2 rounded-full text-sm transition duration-300"
+                      className="text-white px-4 py-2 rounded-full text-sm transition duration-300"
                     >
                       {copied === bankName ? "Tersalin!" : "Salin No. Rekening"}
                     </motion.button>

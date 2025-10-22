@@ -12,14 +12,16 @@ export default {
   theme: {
     extend: {
       colors: {
-      gold: "#f3c55c",
+      krem: "#EFF2E8",
       coklat:{
         500:"#927B48",
         600: "#715B2B"
       },
       hijau: {
-          500: "#A2C8A2",
+          500: "#ADBF9F",
           600: "#4B7B54",
+          700: '#959E89',
+          800: '#767B6F',
           900: '#79987F',
         },
       ungu:{

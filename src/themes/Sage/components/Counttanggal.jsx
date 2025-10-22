@@ -1,5 +1,5 @@
 import BG from "/fotowedding1.png";
-import bgcount from "../assets/bgcounttanggal.png";
+import bgcount from "../assets/Bgcount.png";
 import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
 
@@ -47,27 +47,11 @@ export default function Counttanggal({ data }) {
     >
       {/* card utama */}
       <motion.div
-        className="relative z-10 max-w-[360px] w-full bg-white/90 backdrop-blur-sm rounded-t-full shadow-xl overflow-hidden shimmer-card"
+        className="relative z-10 max-w-[360px] w-full bg-white/50 border-4 border-white rounded-t-full rounded-b-2xl overflow-hidden shadow-lg"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        {/* shimmer overlay */}
-        <motion.div
-          className="absolute inset-0 rounded-2xl pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)",
-            backgroundSize: "200% 100%",
-          }}
-          animate={{ backgroundPosition: ["200% 0%", "-200% 0%"] }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        />
-
         {/* Gambar dengan aspect ratio vertikal */}
         <div className="w-full h-80 relative">
           <img
@@ -135,14 +119,14 @@ function CounterBox({ value, label }) {
       }}
     >
       <motion.div
-        className="bg-hijau-500 border border-white/20 rounded-lg shadow-md p-3 min-w-[70px] backdrop-blur-sm"
+        className="bg-hijau-500 rounded-lg shadow-md p-2 min-w-[65px] backdrop-blur-sm"
         transition={{ type: "spring", stiffness: 250, damping: 20 }}
       >
         <div className="text-xl font-bold text-white">
           {displayValue.toString().padStart(2, "0")}
         </div>
       </motion.div>
-      <div className="text-xs text-gray-600 mt-1">{label}</div>
+      <div className="text-xs text-black mt-1">{label}</div>
     </motion.div>
   );
 }
