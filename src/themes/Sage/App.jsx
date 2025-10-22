@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 import Lovegift from "./components/Lovegift";
 import ModalUndangan from "./components/Modalundangan";
 import MusicPlayer from "./components/MusicPlayer";
-import bgImage from "./assets/bg_all.png";
+import bgImage from "./assets/UndanganHIjauBG-01.png";
 
 export default function Sageapp({ data }) {
   const [showModal, setShowModal] = useState(true);

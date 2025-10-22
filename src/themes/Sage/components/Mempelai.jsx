@@ -1,146 +1,149 @@
 import { motion } from "framer-motion";
+import bunga from "../assets/Bunga-01.png";
 
 export default function Mempelai({ data }) {
   const hero = data?.heroInvitation || {};
 
   return (
-    <section id="mempelai" className="relative min-h-screen">
+    <section id="mempelai" className="relative min-h-screen flex items-center justify-center p-6">
       {/* Overlay */}
-      <div className="absolute inset-0 bg-coklat-500/10" />
+      <div className="absolute inset-0" />
 
-      {/* Konten Mempelai */}
-      <div className="relative z-10 min-h-screen flex items-start justify-center pt-20 p-6">
-        <motion.div
-          className="text-center text-black max-w-4xl"
-          initial={{ opacity: 0, y: 40 }}
+      {/* Card */}
+      <motion.div
+        className="relative z-10 w-full max-w-4xl bg-krem rounded-t-3xl rounded-b-2xl shadow-xl p-8 md:p-12 text-center text-hijau-800"
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        viewport={{ once: true }}
+      >
+        {/* Judul */}
+        <motion.h2
+          className="text-3xl font-bold mb-8"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          Mempelai
+        </motion.h2>
+
+        {/* Deskripsi */}
+        <motion.p
+          className="text-sm leading-relaxed mt-3 font-sans text-hijau-800"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+        >
+          Maha Suci Allah SWT yang telah menciptakan makhluk-Nya berpasangan-pasangan.
+          Tanpa mengurangi rasa hormat, dengan ini kami bermaksud mengundang
+          Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan kami :
+        </motion.p>
+
+        <br />
+
+        {/* Mempelai Pria */}
+        <motion.div
+          className="text-center mb-8 relative inline-block"
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          <motion.h2
-            className="text-3xl font-bold mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            Mempelai
-          </motion.h2>
+          {/* Container foto & bunga */}
+            <div className="relative w-48 h-72 mx-auto mb-4">
+              {/* 🌸 Bunga di belakang (keluar dari frame & lebih besar) */}
+              <motion.img
+                src={bunga}
+                alt="bunga dekoratif"
+                className="absolute -bottom-1 -left-1 w-32 rotate-[-25deg] opacity-90 z-0 pointer-events-none"
+                style={{ transformOrigin: "bottom left" }}
+                initial={{ opacity: 0, scale: 0.95, rotate: -25 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: -25 }}
+                transition={{ delay: 0.9, duration: 0.8 }}
+                viewport={{ once: true }}
+              />
 
-            <motion.p
-              className="text-sm leading-relaxed mt-3 font-display3"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              Maha Suci Allah SWT yang telah menciptakan makhluk-Nya berpasangan-pasangan.
-              Tanpa mengurangi rasa hormat, dengan ini kami bermaksud mengundang
-              Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan kami :
-            </motion.p>
 
-            <br />
-
-            {/* Mempelai Pria */}
+            {/* Bingkai foto */}
             <motion.div
-              className="text-center mb-8 relative"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 0.8, duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true }}
+              className="relative z-10 overflow-hidden border-4 border-hijau-700 shadow-md shadow-black/30 rounded-t-[100px] rounded-b-none w-full h-full"
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 200 }}
             >
-              <motion.div
-                className="w-48 h-78 overflow-hidden border-4 border-coklat-500 shadow-md shadow-black mx-auto mb-4 rounded-t-[100px] rounded-b-none relative"
-                whileHover={{ scale: 1.04 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              >
-                <motion.img
-                  src={hero?.foto_pria || ""}
-                  alt="Mempelai Pria"
-                  className="w-full h-full object-cover relative z-10"
-                  onError={(e) => {
-                    e.target.src = "/placeholder-male.png";
-                  }}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.1, duration: 1 }}
-                  viewport={{ once: true }}
-                />
-              </motion.div>
-              <motion.h3
-                className="text-3xl mb-2 font-bold text-coklat-500"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3, duration: 0.8 }}
+              <motion.img
+                src={hero?.foto_pria || ""}
+                alt="Mempelai Pria"
+                className="w-full h-full object-cover"
+                onError={(e) => (e.target.src = "/placeholder-male.png")}
+                initial={{ opacity: 0, scale: 1.05 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.1, duration: 1 }}
                 viewport={{ once: true }}
-              >
-                {hero.nama_panggilan_pria || "Nama Pria"}
-              </motion.h3>
-              <motion.p
-                className="text-lg"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.4, duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                {hero.orangtua_pria || "Orangtua Pria"}
-              </motion.p>
+              />
             </motion.div>
+          </div>
 
-            {/* & Tanda */}
-            <motion.div
-              className="text-5xl font-cursive font-bold text-coklat-500"
-              animate={{ scale: [1, 1.08, 1] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-            >
-              &
-            </motion.div>
+          <h3 className="text-3xl mb-2 font-bold text-hijau-800">
+            {hero.nama_panggilan_pria || "Nama Pria"}
+          </h3>
+          <p className="text-lg">{hero.orangtua_pria || "Orangtua Pria"}</p>
+        </motion.div>
 
-            {/* Mempelai Wanita */}
+        {/* Simbol & */}
+        <motion.div
+          className="text-5xl font-cursive font-bold text-hijau-800"
+          animate={{ scale: [1, 1.08, 1] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+        >
+          &
+        </motion.div>
+
+        {/* Mempelai Wanita */}
+        <motion.div
+          className="text-center mt-8 relative inline-block"
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ delay: 1.6, duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          <div className="relative w-48 h-72 mx-auto mb-4">
+              {/* 🌸 Bunga di belakang (keluar dari frame & lebih besar) */}
+              <motion.img
+                src={bunga}
+                alt="bunga dekoratif"
+                className="absolute -bottom-0 -right-0 w-32 rotate-[25deg] opacity-90 z-0 pointer-events-none"
+                style={{ transformOrigin: "bottom right" }}
+                initial={{ opacity: 0, scale: 0.95, rotate: 25, y: 10 }}
+                whileInView={{ opacity: 1, scale: 1, rotate: 25, y: 0 }}
+                transition={{ delay: 1.7, duration: 0.8 }}
+                viewport={{ once: true }}
+              />
+
+            {/* Bingkai foto */}
             <motion.div
-              className="text-center mt-8 relative"
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ delay: 1.6, duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true }}
+              className="relative z-10 overflow-hidden border-4 border-hijau-700 shadow-md shadow-black/30 rounded-t-[100px] rounded-b-none w-full h-full"
+              whileHover={{ scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 200 }}
             >
-              <motion.div
-                className="w-48 h-78 overflow-hidden border-4 border-coklat-500 shadow-md shadow-black mx-auto mb-4 rounded-t-[100px] rounded-b-none relative"
-                whileHover={{ scale: 1.04 }}
-                transition={{ type: "spring", stiffness: 200 }}
-              >
-                <motion.img
-                  src={hero?.foto_wanita || ""}
-                  alt="Mempelai Wanita"
-                  className="w-full h-full object-cover relative z-10"
-                  onError={(e) => {
-                    e.target.src = "/placeholder-female.png";
-                  }}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 1.9, duration: 1 }}
-                  viewport={{ once: true }}
-                />
-              </motion.div>
-              <motion.h3
-                className="text-3xl font-bold mb-2 text-coklat-500"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2, duration: 0.8 }}
+              <motion.img
+                src={hero?.foto_wanita || ""}
+                alt="Mempelai Wanita"
+                className="w-full h-full object-cover"
+                onError={(e) => (e.target.src = "/placeholder-female.png")}
+                initial={{ opacity: 0, scale: 1.05 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.9, duration: 1 }}
                 viewport={{ once: true }}
-              >
-                {hero.nama_panggilan_wanita || "Nama Wanita"}
-              </motion.h3>
-              <motion.p
-                className="text-lg"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: 2.1, duration: 0.8 }}
-                viewport={{ once: true }}
-              >
-                {hero.orangtua_wanita || "Orangtua Wanita"}
-              </motion.p>
+              />
             </motion.div>
-          </motion.div>
-      </div>
+          </div>
+
+          <h3 className="text-3xl font-bold mb-2 text-hijau-800">
+            {hero.nama_panggilan_wanita || "Nama Wanita"}
+          </h3>
+          <p className="text-lg">{hero.orangtua_wanita || "Orangtua Wanita"}</p>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
