@@ -10,7 +10,7 @@ import Footer from "./components/Footer";
 import Lovegift from "./components/Lovegift";
 import ModalUndangan from "./components/Modalundangan";
 import MusicPlayer from "./components/MusicPlayer";
-import bgImage from "./assets/bg_all.png";
+import bgImage from "./assets/Bg_all.png";
 
 export default function Brownapp({ data }) {
   const [showModal, setShowModal] = useState(true);

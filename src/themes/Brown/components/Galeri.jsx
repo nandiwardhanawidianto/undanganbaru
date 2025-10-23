@@ -163,7 +163,7 @@ export default function Galeri({ data }) {
         className="relative min-h-screen flex items-center justify-center p-6 bg-white/50"
       >
         <div className="text-center">
-          <h2 className="text-4xl font-bold text-coklat-500 mb-8">Galeri</h2>
+          <h2 className="text-4xl font-bold text-white mb-8">Galeri</h2>
           <p>Loading galeri...</p>
         </div>
       </section>
@@ -173,11 +173,11 @@ export default function Galeri({ data }) {
   return (
     <section
       id="galeri"
-      className="relative min-h-screen flex items-center justify-center p-6 bg-coklat-500/10"
+      className="relative min-h-screen flex items-center justify-center p-6 bg-coklat-500/30 backdrop-blur-sm"
     >
       <div className="max-w-4xl w-full text-center">
         <motion.h2
-          className="text-4xl font-bold text-coklat-00 mb-8"
+          className="text-4xl font-bold text-white mb-8"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
