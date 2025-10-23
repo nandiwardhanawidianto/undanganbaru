@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import bglovegift from "../assets/bg_all.png";
+import bglovegift from "../assets/Bg_all.png";
 
 export default function LoveGift({ data: propData }) {
   const { slug } = useParams();
@@ -101,13 +101,13 @@ export default function LoveGift({ data: propData }) {
   };
 
   const buttonVariants = {
-    hover: { scale: 1.05, backgroundColor: "#9333EA", color: "#fff" },
+    hover: { scale: 1.05, backgroundColor: "#7B5B38", color: "#ffff" },
     tap: { scale: 0.95 },
   };
 
   return (
     <section id="lovegift"
-      className="relative py-16 overflow-hidden"
+      className="relative py-16 overflow-hidden bg-krem bg-cover bg-center bg-no-repeat"
       style={{ 
         backgroundImage: `url(${bglovegift})`,
         backgroundSize: 'cover',
@@ -123,11 +123,13 @@ export default function LoveGift({ data: propData }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="font-estetik text-5xl mb-6 text-coklat-500">Love Gift</h1>
-          <p className="text-coklat-500 mb-8 max-w-2xl mx-auto">
-            Tanpa mengurangi rasa hormat, bagi anda yang ingin memberikan tanda kasih untuk kami,
-            dapat melalui :
-          </p>
+          <div className="bg-white/70 backdrop-blur-md border border-coklat-200 rounded-3xl shadow-md inline-block px-8 py-6 mb-28 max-w-2xl mx-auto">
+            <h1 className="font-estetik text-5xl mb-4 text-coklat-600">Love Gift</h1>
+            <p className="text-coklat-600 leading-relaxed">
+              Tanpa mengurangi rasa hormat, bagi anda yang ingin memberikan tanda kasih untuk kami,
+              dapat melalui :
+            </p>
+          </div>
         </motion.div>
 
         {loading ? (
