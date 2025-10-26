@@ -27,7 +27,7 @@ export default function Navbar() {
           <motion.li
             key={index}
             whileHover={{ y: -4, scale: 1.15 }}
-            whileTap={{ scale: 0.95 }}
+            whileTap={{ y: -4, scale: 1.15 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
             <button

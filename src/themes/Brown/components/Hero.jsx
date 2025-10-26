@@ -2,7 +2,7 @@ import { FaChevronDown, FaCalendarCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { useEffect, useRef, useState } from "react";
-import sageAnim from "../assets/lottie/brown-anim.json";
+import sageAnim from "../assets/lottie/data.json";
 
 export default function Hero({ data }) {
   const hero = data?.heroInvitation || {};
@@ -16,7 +16,14 @@ export default function Hero({ data }) {
       })
     : "-";
 
-  const lottieRef = useRef(null);
+  const lottieRef = useRef(null); `
+  
+  
+  
+  
+  6960
+  
+  696091`
   const [showText, setShowText] = useState(false);
   const timerRef = useRef(null);
   const startedRef = useRef(false); // mencegah double-start

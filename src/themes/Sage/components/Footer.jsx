@@ -2,8 +2,7 @@ import logoshopee from "../assets/logoshopee.png";
 
 export default function Footer() {
   return (
-    <footer className="py-8 pb-20 bg-hijau-500 text-center text-white">
-      <p>Wassalamualaikum Warahmatullahi Wabarakatuh</p>
+    <footer className="py-8 pb-20 bg-hijau-500 text-center text-white text-lg">
       <p className="mt-4">&copy; 2023 Royal Wedding Invitation Planner</p>
 
       {/* Logo + tulisan dengan link */}
@@ -19,7 +18,7 @@ export default function Footer() {
             alt="Shopee Logo"
             className="w-6 h-6 object-contain"
           />
-          <span className="text-sm font-medium">RoyalWeddingInvitation</span>
+          <span className="text-lg font-medium">RoyalWeddingInvitation</span>
         </a>
       </div>
     </footer>
