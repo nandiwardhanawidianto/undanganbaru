@@ -10,6 +10,28 @@ export default function Tanggal({ data }) {
   const acaraPertama = acaras[0] || {};
   const targetDateStr = acaraPertama?.tanggal_acara || "2025-11-11";
 
+  // === Fungsi format tanggal ke 01 Januari 2026 ===
+  const formatTanggal = (tanggalStr) => {
+    if (!tanggalStr) return "";
+    const bulanIndo = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
+    const [year, month, day] = tanggalStr.split("-");
+    const namaBulan = bulanIndo[parseInt(month) - 1];
+    return `${day} ${namaBulan} ${year}`;
+  };
+
   // === State waktu tersisa ===
   const [timeLeft, setTimeLeft] = useState(getTimeLeft(targetDateStr));
 
@@ -47,7 +69,6 @@ export default function Tanggal({ data }) {
         backgroundPosition: "center",
       }}
     >
-
       {/* === BUNGA ATAS === */}
       <motion.img
         src={bucketbunga}
@@ -58,8 +79,8 @@ export default function Tanggal({ data }) {
         transition={{ duration: 1, ease: "easeOut" }}
         viewport={{ once: true }}
       />
-      
-      {/* === COUNTDOWN SECTION (tanpa kotak krem luar) === */}
+
+      {/* === COUNTDOWN SECTION === */}
       <motion.div
         className="text-center max-w-md w-full mb-10"
         initial={{ opacity: 0, y: 40 }}
@@ -67,10 +88,7 @@ export default function Tanggal({ data }) {
         transition={{ duration: 1, ease: "easeOut" }}
         viewport={{ once: true }}
       >
-        <h3 className="text-white text-3xl font-semibold mb-5"
-        >
-          Save The Date
-        </h3>
+        <h3 className="text-white text-3xl font-semibold mb-5">Save The Date</h3>
 
         <div className="flex justify-center gap-3">
           <CountBox value={timeLeft.days} label="Hari" />
@@ -111,10 +129,15 @@ export default function Tanggal({ data }) {
                 viewport={{ once: true }}
               >
                 <h2 className="text-3xl font-bold mb-3">{acara.nama_acara}</h2>
-                <p className="text-lg font-semibold mb-1">{acara.tanggal_acara}</p>
+
+                {/* Format tanggal tampil dengan nama bulan */}
+                <p className="text-lg font-semibold mb-1">
+                  {formatTanggal(acara.tanggal_acara)}
+                </p>
+
                 <p className="text-lg mb-4">Pukul {acara.pukul_acara}</p>
 
-                <div className="mt-3 flex flex-col items-center text-sm">
+                <div className="mt-3 flex flex-col items-center text-lg">
                   <SiGooglemaps className="text-hijau-600 w-8 h-8 mb-1" />
                   <p>Bertempat di</p>
                   <p className="font-semibold">{acara.alamat_acara}</p>
