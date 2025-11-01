@@ -1,15 +1,20 @@
 import { motion } from "framer-motion";
 import bunga from "../assets/Bunga.png";
+import cewe from "../assets/Cewe.png";
+import laki from "../assets/Laki.png";
 
 export default function Mempelai({ data }) {
   const hero = data?.heroInvitation || {};
 
+  // Gunakan default image kalau foto dari API tidak ada atau kosong
+  const fotoPria = hero?.foto_pria && hero.foto_pria.trim() !== "" ? hero.foto_pria : laki;
+  const fotoWanita =
+    hero?.foto_wanita && hero.foto_wanita.trim() !== "" ? hero.foto_wanita : cewe;
+
   return (
     <section id="mempelai" className="relative min-h-screen flex items-center justify-center p-6">
-      {/* Overlay */}
       <div className="absolute inset-0" />
 
-      {/* Card */}
       <motion.div
         className="relative z-10 w-full max-w-4xl bg-krem rounded-t-3xl rounded-b-2xl shadow-xl p-8 md:p-12 text-center text-black"
         initial={{ opacity: 0, y: 60 }}
@@ -49,32 +54,29 @@ export default function Mempelai({ data }) {
           transition={{ delay: 1.6, duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true }}
         >
-          {/* Container foto & bunga */}
-            <div className="relative w-48 h-72 mx-auto mb-4">
-              {/* 🌸 Bunga di belakang (keluar dari frame & lebih besar) */}
-              <motion.img
-                src={bunga}
-                alt="bunga dekoratif"
-                className="absolute -bottom-1 -left-1 w-32 rotate-[-25deg] opacity-90 z-0 pointer-events-none"
-                style={{ transformOrigin: "bottom left" }}
-                initial={{ opacity: 0, scale: 0.95, rotate: -25 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: -25 }}
-                transition={{ delay: 0.9, duration: 0.8 }}
-                viewport={{ once: true }}
-              />
-
+          <div className="relative w-48 h-72 mx-auto mb-4">
+            <motion.img
+              src={bunga}
+              alt="bunga dekoratif"
+              className="absolute -bottom-1 -left-1 w-32 rotate-[-25deg] opacity-90 z-0 pointer-events-none"
+              style={{ transformOrigin: "bottom left" }}
+              initial={{ opacity: 0, scale: 0.95, rotate: -25 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: -25 }}
+              transition={{ delay: 0.9, duration: 0.8 }}
+              viewport={{ once: true }}
+            />
 
             {/* Bingkai foto */}
             <motion.div
               className="relative z-10 overflow-hidden border-4 border-coklat-700 shadow-md shadow-black/30 rounded-full w-full h-full"
               whileHover={{ scale: 1.04 }}
-              transition={{ type: 'spring', stiffness: 200 }}
+              transition={{ type: "spring", stiffness: 200 }}
             >
               <motion.img
-                src={hero?.foto_pria || ""}
+                src={fotoPria}
                 alt="Mempelai Pria"
                 className="w-full h-full object-cover"
-                onError={(e) => (e.target.src = "/placeholder-male.png")}
+                onError={(e) => (e.target.src = laki)}
                 initial={{ opacity: 0, scale: 1.05 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.1, duration: 1 }}
@@ -107,29 +109,28 @@ export default function Mempelai({ data }) {
           viewport={{ once: true }}
         >
           <div className="relative w-48 h-72 mx-auto mb-4">
-              {/* 🌸 Bunga di belakang (keluar dari frame & lebih besar) */}
-              <motion.img
-                src={bunga}
-                alt="bunga dekoratif"
-                className="absolute -bottom-0 -right-0 w-32 rotate-[25deg] opacity-90 z-0 pointer-events-none"
-                style={{ transformOrigin: "bottom right" }}
-                initial={{ opacity: 0, scale: 0.95, rotate: 25, y: 10 }}
-                whileInView={{ opacity: 1, scale: 1, rotate: 25, y: 0 }}
-                transition={{ delay: 1.7, duration: 0.8 }}
-                viewport={{ once: true }}
-              />
+            <motion.img
+              src={bunga}
+              alt="bunga dekoratif"
+              className="absolute -bottom-0 -right-0 w-32 rotate-[25deg] opacity-90 z-0 pointer-events-none"
+              style={{ transformOrigin: "bottom right" }}
+              initial={{ opacity: 0, scale: 0.95, rotate: 25, y: 10 }}
+              whileInView={{ opacity: 1, scale: 1, rotate: 25, y: 0 }}
+              transition={{ delay: 1.7, duration: 0.8 }}
+              viewport={{ once: true }}
+            />
 
             {/* Bingkai foto */}
             <motion.div
               className="relative z-10 overflow-hidden border-4 border-coklat-700 shadow-md shadow-black/30 rounded-full w-full h-full"
               whileHover={{ scale: 1.04 }}
-              transition={{ type: 'spring', stiffness: 200 }}
+              transition={{ type: "spring", stiffness: 200 }}
             >
               <motion.img
-                src={hero?.foto_wanita || ""}
+                src={fotoWanita}
                 alt="Mempelai Wanita"
                 className="w-full h-full object-cover"
-                onError={(e) => (e.target.src = "/placeholder-female.png")}
+                onError={(e) => (e.target.src = cewe)}
                 initial={{ opacity: 0, scale: 1.05 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.9, duration: 1 }}

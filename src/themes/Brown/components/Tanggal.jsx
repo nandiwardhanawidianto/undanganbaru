@@ -47,7 +47,6 @@ export default function Tanggal({ data }) {
         backgroundPosition: "center",
       }}
     >
-
       {/* === BUNGA ATAS === */}
       <motion.img
         src={bucketbunga}
@@ -59,7 +58,7 @@ export default function Tanggal({ data }) {
         viewport={{ once: true }}
       />
       
-      {/* === COUNTDOWN SECTION (tanpa kotak krem luar) === */}
+      {/* === COUNTDOWN SECTION === */}
       <motion.div
         className="text-center max-w-md w-full mb-10"
         initial={{ opacity: 0, y: 40 }}
@@ -67,8 +66,7 @@ export default function Tanggal({ data }) {
         transition={{ duration: 1, ease: "easeOut" }}
         viewport={{ once: true }}
       >
-        <h3 className="text-white text-3xl font-semibold mb-5"
-        >
+        <h3 className="text-white text-3xl font-semibold mb-5">
           Save The Date
         </h3>
 
@@ -91,15 +89,19 @@ export default function Tanggal({ data }) {
             transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.2 }}
             viewport={{ once: true }}
           >
-            {/* Background */}
-            <motion.img
-              src={bgtanggal}
-              alt={`Background ${acara.nama_acara}`}
-              className="absolute inset-0 w-full h-full object-cover"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 1.2 }}
-            />
+            {/* Background + Overlay Gelap */}
+            <div className="absolute inset-0">
+              <motion.img
+                src={bgtanggal}
+                alt={`Background ${acara.nama_acara}`}
+                className="absolute inset-0 w-full h-full object-cover"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1.2 }}
+              />
+              {/* Overlay 30% gelap */}
+              <div className="absolute inset-0 backdrop-blur-[2px]"></div>
+            </div>
 
             {/* Isi acara */}
             <div className="absolute inset-0 flex items-center justify-center p-8">
