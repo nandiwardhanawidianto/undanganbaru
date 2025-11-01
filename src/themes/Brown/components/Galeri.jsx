@@ -20,6 +20,8 @@ export default function Galeri({ data }) {
 
     if (!data?.galeri || data.galeri.length === 0) {
       setIsLoaded(false);
+      setSlidesAtas([]);
+      setSlidesBawah([]);
       return;
     }
 
@@ -31,6 +33,11 @@ export default function Galeri({ data }) {
     setSlidesBawah(bawah);
     setIsLoaded(true);
   }, [data]);
+
+  // ⛔ Tambahan: Jika tidak ada data galeri, hentikan render total
+  if (!data?.galeri || data.galeri.length === 0) {
+    return null;
+  }
 
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -54,23 +61,7 @@ export default function Galeri({ data }) {
   };
 
   const Carousel = ({ slides, currentSlide, setCurrentSlide, setDirection, title, index }) => {
-    if (!slides || slides.length === 0) {
-      return (
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          custom={index}
-          className="mb-12"
-        >
-          <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">{title}</h3>
-          <div className="h-80 rounded-2xl overflow-hidden shadow-xl bg-gray-100 flex items-center justify-center">
-            <p className="text-gray-500">Tidak ada gambar</p>
-          </div>
-        </motion.div>
-      );
-    }
+    if (!slides || slides.length === 0) return null;
 
     const nextSlide = () => {
       setDirection("right");
@@ -156,19 +147,7 @@ export default function Galeri({ data }) {
     );
   };
 
-  if (!isLoaded) {
-    return (
-      <section
-        id="galeri"
-        className="relative min-h-screen flex items-center justify-center p-6 bg-white/50"
-      >
-        <div className="text-center">
-          <h2 className="text-4xl font-bold text-white mb-8">Galeri</h2>
-          <p>Loading galeri...</p>
-        </div>
-      </section>
-    );
-  }
+  if (!isLoaded) return null;
 
   return (
     <section
