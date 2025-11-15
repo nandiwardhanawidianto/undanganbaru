@@ -84,7 +84,7 @@ export default function Mempelai({ data }) {
           </div>
 
           <h3 className="text-3xl mb-2 font-bold text-ungu-500 pt-4">
-            {hero.nama_panggilan_pria || "Nama Pria"}
+            {hero.nama_lengkap_pria || "Nama Pria"}
           </h3>
           <p className="text-lg">{hero.orangtua_pria || "Orangtua Pria"}</p>
         </motion.div>
@@ -138,7 +138,7 @@ export default function Mempelai({ data }) {
           </div>
 
           <h3 className="text-3xl font-bold mb-2 text-ungu-500 pt-4">
-            {hero.nama_panggilan_wanita || "Nama Wanita"}
+            {hero.nama_lengkap_wanita || "Nama Wanita"}
           </h3>
           <p className="text-lg">{hero.orangtua_wanita || "Orangtua Wanita"}</p>
         </motion.div>

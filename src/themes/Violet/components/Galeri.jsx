@@ -32,6 +32,11 @@ export default function Galeri({ data }) {
     setIsLoaded(true);
   }, [data]);
 
+  // ⛔ Tambahan: Jika tidak ada data galeri, hentikan render total
+  if (!data?.galeri || data.galeri.length === 0) {
+    return null;
+  }
+
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: (i = 1) => ({

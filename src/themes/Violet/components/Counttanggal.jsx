@@ -1,4 +1,4 @@
-import BG from "/fotowedding1.png";
+import BG from "/Nonfoto.png";
 import bungaatas from "../assets/Bungaatas.png";
 import { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, animate } from "framer-motion";
