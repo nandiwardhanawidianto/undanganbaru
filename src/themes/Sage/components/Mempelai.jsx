@@ -1,8 +1,16 @@
 import { motion } from "framer-motion";
 import bunga from "../assets/Bunga-01.png";
+import cewe from "/Cewe.png";
+import laki from "/Laki.png";
 
 export default function Mempelai({ data }) {
   const hero = data?.heroInvitation || {};
+
+    // Gunakan default image kalau foto dari API tidak ada atau kosong
+    const fotoPria = hero?.foto_pria && hero.foto_pria.trim() !== "" ? hero.foto_pria : laki;
+    const fotoWanita =
+      hero?.foto_wanita && hero.foto_wanita.trim() !== "" ? hero.foto_wanita : cewe;
+  
 
   return (
     <section id="mempelai" className="relative min-h-screen flex items-center justify-center p-6">
@@ -71,10 +79,10 @@ export default function Mempelai({ data }) {
               transition={{ type: 'spring', stiffness: 200 }}
             >
               <motion.img
-                src={hero?.foto_pria || ""}
+                src={fotoPria}
                 alt="Mempelai Pria"
                 className="w-full h-full object-cover"
-                onError={(e) => (e.target.src = "/placeholder-male.png")}
+                onError={(e) => (e.target.src = laki)}
                 initial={{ opacity: 0, scale: 1.05 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.1, duration: 1 }}
@@ -84,7 +92,7 @@ export default function Mempelai({ data }) {
           </div>
 
           <h3 className="text-3xl mb-2 font-bold text-hijau-800">
-            {hero.nama_panggilan_pria || "Nama Pria"}
+            {hero.nama_lengkap_pria || "Nama Pria"}
           </h3>
           <p className="text-lg">{hero.orangtua_pria || "Orangtua Pria"}</p>
         </motion.div>
@@ -126,10 +134,10 @@ export default function Mempelai({ data }) {
               transition={{ type: 'spring', stiffness: 200 }}
             >
               <motion.img
-                src={hero?.foto_wanita || ""}
+                src={fotoWanita}
                 alt="Mempelai Wanita"
                 className="w-full h-full object-cover"
-                onError={(e) => (e.target.src = "/placeholder-female.png")}
+                onError={(e) => (e.target.src = cewe)}
                 initial={{ opacity: 0, scale: 1.05 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.9, duration: 1 }}
@@ -139,7 +147,7 @@ export default function Mempelai({ data }) {
           </div>
 
           <h3 className="text-3xl font-bold mb-2 text-hijau-800">
-            {hero.nama_panggilan_wanita || "Nama Wanita"}
+            {hero.nama_lengkap_wanita || "Nama Wanita"}
           </h3>
           <p className="text-lg">{hero.orangtua_wanita || "Orangtua Wanita"}</p>
         </motion.div>

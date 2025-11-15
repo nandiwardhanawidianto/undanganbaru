@@ -20,6 +20,8 @@ export default function Galeri({ data }) {
 
     if (!data?.galeri || data.galeri.length === 0) {
       setIsLoaded(false);
+      setSlidesAtas([]);
+      setSlidesBawah([]);
       return;
     }
 
@@ -31,6 +33,11 @@ export default function Galeri({ data }) {
     setSlidesBawah(bawah);
     setIsLoaded(true);
   }, [data]);
+
+  // 🟢 Tambahan: Jika tidak ada data galeri, hentikan render total
+  if (!data?.galeri || data.galeri.length === 0) {
+    return null;
+  }
 
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
