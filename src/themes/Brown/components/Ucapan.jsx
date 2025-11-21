@@ -95,7 +95,7 @@ export default function Ucapan({ slugId }) {
   };
 
   return (
-    <section id="ucapan" className="py-16 bg-gradient-to-b from-coklat-500 to-gray-50">
+    <section id="ucapan" className="py-16 bg-gradient-to-b from-coklat-700 to-gray-50">
       <div className="container mx-auto px-4 max-w-3xl">
         <h1 className="font-estetik text-4xl text-center mb-10 text-white">
           Ucapan & Doa
