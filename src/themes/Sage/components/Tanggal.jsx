@@ -10,9 +10,20 @@ export default function Tanggal({ data }) {
   const acaraPertama = acaras[0] || {};
   const targetDateStr = acaraPertama?.tanggal_acara || "2025-11-11";
 
-  // === Fungsi format tanggal ke 01 Januari 2026 ===
+  // === Format tanggal: Sabtu, 11 Januari 2026 ===
   const formatTanggal = (tanggalStr) => {
     if (!tanggalStr) return "";
+
+    const hariIndo = [
+      "Minggu",
+      "Senin",
+      "Selasa",
+      "Rabu",
+      "Kamis",
+      "Jumat",
+      "Sabtu",
+    ];
+
     const bulanIndo = [
       "Januari",
       "Februari",
@@ -27,18 +38,25 @@ export default function Tanggal({ data }) {
       "November",
       "Desember",
     ];
+
     const [year, month, day] = tanggalStr.split("-");
+    const dateObj = new Date(`${year}-${month}-${day}T00:00:00`);
+
+    const namaHari = hariIndo[dateObj.getDay()];
     const namaBulan = bulanIndo[parseInt(month) - 1];
-    return `${day} ${namaBulan} ${year}`;
+
+    return `${namaHari}, ${day} ${namaBulan} ${year}`;
   };
 
-  // === State waktu tersisa ===
+  // === State timeLeft ===
   const [timeLeft, setTimeLeft] = useState(getTimeLeft(targetDateStr));
 
   function getTimeLeft(dateStr) {
     const target = new Date(`${dateStr}T00:00:00`);
     const diff = target - new Date();
-    if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+    if (diff <= 0)
+      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+
     return {
       days: Math.floor(diff / (1000 * 60 * 60 * 24)),
       hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
@@ -48,13 +66,19 @@ export default function Tanggal({ data }) {
   }
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeLeft(getTimeLeft(targetDateStr)), 1000);
+    const timer = setInterval(() => {
+      setTimeLeft(getTimeLeft(targetDateStr));
+    }, 1000);
+
     return () => clearInterval(timer);
   }, [targetDateStr]);
 
   if (acaras.length === 0) {
     return (
-      <section id="tanggal" className="min-h-screen flex items-center justify-center">
+      <section
+        id="tanggal"
+        className="min-h-screen flex items-center justify-center"
+      >
         <p className="text-gray-500">Tidak ada data acara.</p>
       </section>
     );
@@ -69,7 +93,7 @@ export default function Tanggal({ data }) {
         backgroundPosition: "center",
       }}
     >
-      {/* === BUNGA ATAS === */}
+      {/* === Bunga Atas === */}
       <motion.img
         src={bucketbunga}
         alt="Bucket Bunga"
@@ -80,7 +104,7 @@ export default function Tanggal({ data }) {
         viewport={{ once: true }}
       />
 
-      {/* === COUNTDOWN SECTION === */}
+      {/* === Countdown === */}
       <motion.div
         className="text-center max-w-md w-full mb-10"
         initial={{ opacity: 0, y: 40 }}
@@ -88,7 +112,9 @@ export default function Tanggal({ data }) {
         transition={{ duration: 1, ease: "easeOut" }}
         viewport={{ once: true }}
       >
-        <h3 className="text-white text-3xl font-semibold mb-5">Save The Date</h3>
+        <h3 className="text-white text-3xl font-semibold mb-5">
+          Save The Date
+        </h3>
 
         <div className="flex justify-center gap-3">
           <CountBox value={timeLeft.days} label="Hari" />
@@ -98,7 +124,7 @@ export default function Tanggal({ data }) {
         </div>
       </motion.div>
 
-      {/* === DAFTAR ACARA === */}
+      {/* === Daftar Acara === */}
       <div className="flex flex-col gap-10 w-full max-w-4xl">
         {acaras.map((acara, i) => (
           <motion.div
@@ -106,7 +132,11 @@ export default function Tanggal({ data }) {
             className="relative w-full h-[500px] rounded-[150px] overflow-hidden border-hijau-700 border-4 shadow-lg hover:shadow-2xl transition-all duration-500"
             initial={{ opacity: 0, y: 60 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.2 }}
+            transition={{
+              duration: 0.8,
+              ease: "easeOut",
+              delay: i * 0.2,
+            }}
             viewport={{ once: true }}
           >
             {/* Background */}
@@ -128,19 +158,24 @@ export default function Tanggal({ data }) {
                 transition={{ duration: 0.6, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-3xl font-bold mb-3">{acara.nama_acara}</h2>
+                <h2 className="text-3xl font-bold mb-3">
+                  {acara.nama_acara}
+                </h2>
 
-                {/* Format tanggal tampil dengan nama bulan */}
+                {/* === Tanggal lengkap dengan nama hari === */}
                 <p className="text-lg font-semibold mb-1">
                   {formatTanggal(acara.tanggal_acara)}
                 </p>
 
-                <p className="text-lg mb-4">Pukul {acara.pukul_acara}</p>
+                <p className="text-lg mb-4">
+                  Pukul {acara.pukul_acara}
+                </p>
 
                 <div className="mt-3 flex flex-col items-center text-lg">
                   <SiGooglemaps className="text-hijau-600 w-8 h-8 mb-1" />
-                  <p>Bertempat di</p>
-                  <p className="font-semibold">{acara.alamat_acara}</p>
+                  <p className="font-semibold">
+                    {acara.alamat_acara}
+                  </p>
                 </div>
 
                 {acara.link_acara && (
@@ -163,7 +198,7 @@ export default function Tanggal({ data }) {
   );
 }
 
-/* === CountBox dengan bg krem === */
+/* === CountBox === */
 function CountBox({ value, label }) {
   const count = useMotionValue(value);
   const [displayValue, setDisplayValue] = useState(value);
@@ -174,8 +209,10 @@ function CountBox({ value, label }) {
       const controls = animate(count, value, {
         duration: 0.4,
         ease: "easeOut",
-        onUpdate: (latest) => setDisplayValue(Math.round(latest)),
+        onUpdate: (latest) =>
+          setDisplayValue(Math.round(latest)),
       });
+
       prevValue.current = value;
       return () => controls.stop();
     } else {
@@ -194,7 +231,9 @@ function CountBox({ value, label }) {
         <div className="text-xl font-bold text-hijau-700">
           {displayValue.toString().padStart(2, "0")}
         </div>
-        <div className="text-xs text-hijau-700 mt-1">{label}</div>
+        <div className="text-xs text-hijau-700 mt-1">
+          {label}
+        </div>
       </div>
     </motion.div>
   );
