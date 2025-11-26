@@ -57,7 +57,7 @@ export default function Tanggal({ data }) {
         transition={{ duration: 1, ease: "easeOut" }}
         viewport={{ once: true }}
       />
-
+      
       {/* === COUNTDOWN SECTION === */}
       <motion.div
         className="text-center max-w-md w-full mb-10"
@@ -80,85 +80,75 @@ export default function Tanggal({ data }) {
 
       {/* === DAFTAR ACARA === */}
       <div className="flex flex-col gap-10 w-full max-w-4xl">
-        {acaras.map((acara, i) => {
-          const hariTanggal = new Date(`${acara.tanggal_acara}T00:00:00`).toLocaleDateString(
-            "id-ID",
-            {
-              weekday: "long",
-              day: "2-digit",
-              month: "long",
-              year: "numeric",
-            }
-          );
+        {acaras.map((acara, i) => (
+          <motion.div
+            key={acara.id}
+            className="relative w-full h-[500px] rounded-full overflow-hidden border-white border-4 shadow-lg hover:shadow-2xl transition-all duration-500"
+            initial={{ opacity: 0, y: 60 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.2 }}
+            viewport={{ once: true }}
+          >
+            {/* Background + Overlay Gelap */}
+            <div className="absolute inset-0">
+              <motion.img
+                src={bgtanggal}
+                alt={`Background ${acara.nama_acara}`}
+                className="absolute inset-0 w-full h-full object-cover"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1.2 }}
+              />
+              {/* Overlay 30% gelap */}
+              <div className="absolute inset-0 backdrop-blur-[2px]"></div>
+            </div>
 
-          return (
-            <motion.div
-              key={acara.id}
-              className="relative w-full h-[500px] rounded-full overflow-hidden border-white border-4 shadow-lg hover:shadow-2xl transition-all duration-500"
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut", delay: i * 0.2 }}
-              viewport={{ once: true }}
-            >
-              {/* Background */}
-              <div className="absolute inset-0">
-                <motion.img
-                  src={bgtanggal}
-                  alt={`Background ${acara.nama_acara}`}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  transition={{ duration: 1.2 }}
-                />
-                <div className="absolute inset-0 backdrop-blur-[2px]"></div>
-              </div>
+            {/* Isi acara */}
+            <div className="absolute inset-0 flex items-center justify-center p-8">
+              <motion.div
+                className="text-center text-coklat-700 rounded-3xl px-6 py-8"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-3xl font-bold mb-3">{acara.nama_acara}</h2>
+                <p className="text-lg font-semibold mb-1">
+                  {new Date(acara.tanggal_acara).toLocaleDateString("id-ID", {
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </p>
+                <p className="text-lg mb-4">Pukul {acara.pukul_acara}</p>
 
-              {/* Isi acara */}
-              <div className="absolute inset-0 flex items-center justify-center p-8">
-                <motion.div
-                  className="text-center text-coklat-700 rounded-3xl px-6 py-8"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                  viewport={{ once: true }}
-                >
-                  <h2 className="text-3xl font-bold mb-3">{acara.nama_acara}</h2>
+                <div className="mt-3 flex flex-col items-center text-base">
+                  <SiGooglemaps className="text-coklat-700 w-8 h-8 mb-1" />
+                  <p>Bertempat di</p>
+                  <p className="font-semibold">{acara.alamat_acara}</p>
+                </div>
 
-                  {/* === HARI + TANGGAL === */}
-                  <p className="text-lg font-semibold mb-1">
-                    {hariTanggal}
-                  </p>
-
-                  <p className="text-lg mb-4">Pukul {acara.pukul_acara}</p>
-
-                  <div className="mt-3 flex flex-col items-center text-base">
-                    <SiGooglemaps className="text-coklat-700 w-8 h-8 mb-1" />
-                    <p>Bertempat di</p>
-                    <p className="font-semibold">{acara.alamat_acara}</p>
-                  </div>
-
-                  {acara.link_acara && (
-                    <a
-                      href={acara.link_acara}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-coklat-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:bg-coklat-800 hover:shadow-lg transition-all mt-5"
-                    >
-                      <TbMapSearch className="text-lg" />
-                      Google Maps
-                    </a>
-                  )}
-                </motion.div>
-              </div>
-            </motion.div>
-          );
-        })}
+                {acara.link_acara && (
+                  <a
+                    href={acara.link_acara}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 bg-coklat-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:bg-coklat-800 hover:shadow-lg transition-all mt-5"
+                  >
+                    <TbMapSearch className="text-lg" />
+                    Google Maps
+                  </a>
+                )}
+              </motion.div>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
 }
 
-/* === CountBox === */
+/* === CountBox dengan bg krem === */
 function CountBox({ value, label }) {
   const count = useMotionValue(value);
   const [displayValue, setDisplayValue] = useState(value);
