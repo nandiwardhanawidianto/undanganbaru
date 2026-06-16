@@ -7,6 +7,7 @@ import Sageapp from "./themes/Sage/App";
 import Brownapp from "./themes/Brown/App";
 import Jawaapp from "./themes/Jawa/App";
 import Biruapp from "./themes/Biru/App";
+import Hitamapp from "./themes/Hitam/App";
 
 export default function ThemeSelector({ data }) {
   const theme = data?.slug?.theme?.toLowerCase() || "violet";
@@ -21,8 +22,10 @@ export default function ThemeSelector({ data }) {
       return <Jawaapp data={data} />;
     case "biru":
       return <Biruapp data={data} />;
-
-    default:
+    case "hitam":
+      return <Hitamapp data={data} />;
+    
+      default:
       console.warn(`⚠️ Theme "${theme}" not found, fallback to Violet`);
       return <VioletApp data={data} />;
   }

@@ -36,9 +36,10 @@ export default {
         biru: {
           500: '#96AFDF',
           600: '#7E99CF',
-          700: '#7e22ce',
-          800: '#6b21a8',
-          900: '#B3D7BA',
+        },
+        hitam: {
+          500: '#000000',
+          600: '#7E99CF',
         },
       },
       fontFamily: {                  
