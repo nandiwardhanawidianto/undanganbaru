@@ -2,7 +2,7 @@ import { FaChevronDown, FaCalendarCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { useEffect, useRef, useState } from "react";
-import sageAnim from "../assets/lottie/Undanganhitam.json";
+import sageAnim from "../assets/lottie/Pink.json";
 
 export default function Hero({ data }) {
   const hero = data?.heroInvitation || {};
@@ -107,7 +107,7 @@ export default function Hero({ data }) {
           <div className="relative flex items-center justify-center w-full">
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center z-20">
               <motion.h1
-                className="text-lg md:text-2xl text-hitam-500 mb-4 mt- font-semibold tracking-wider font-judul uppercase"
+                className="text-lg md:text-2xl text-pink-500 mb-4 mt- font-semibold tracking-wider font-judul uppercase"
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1, ease: "easeInOut" }}
@@ -116,7 +116,7 @@ export default function Hero({ data }) {
               </motion.h1>
 
               <motion.div
-                className="flex flex-col items-center text-center text-4xl italic font-display text-hitam-500 gap-y-2 mb-6"
+                className="flex flex-col items-center text-center text-4xl italic font-display text-pink-500 gap-y-2 mb-6"
                 initial={{ scale: 0.7, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 1.5, ease: "easeInOut" }}
@@ -127,7 +127,7 @@ export default function Hero({ data }) {
               </motion.div>
 
               <motion.div
-                className="text-2xl italic font-display text-hitam-500 mb-8"
+                className="text-2xl italic font-display text-pink-500 mb-8"
                 initial={{ scale: 0.7, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -137,7 +137,7 @@ export default function Hero({ data }) {
 
               <motion.a
                 href="#"
-                className="inline-flex items-center gap-3 text-hitam-500 px-8 py-2 rounded-full font-bold hover:scale-105 transition-all duration-300 shadow-xl shadow-hijau-700/50 border-2 border-hitam-500 hover:bg-white"
+                className="inline-flex items-center gap-3 text-pink-500 px-8 py-2 rounded-full font-bold hover:scale-105 transition-all duration-300 shadow-xl shadow-hijau-700/50 border-2 border-pink-500 hover:bg-white"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
@@ -154,8 +154,8 @@ export default function Hero({ data }) {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}
               >
-                <FaChevronDown className="text-2xl text-hitam-500 mb-2 animate-bounce" />
-                <span className="text-xl text-hitam-500 shadow-sm">Scroll Down</span>
+                <FaChevronDown className="text-2xl text-pink-500 mb-2 animate-bounce" />
+                <span className="text-xl text-pink-500 shadow-sm">Scroll Down</span>
               </motion.div>
             </div>
           </div>
