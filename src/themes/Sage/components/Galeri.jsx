@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+// import bggaleri from "../assets/Bg_AkadResepsihijau.png";
+import bucketbunga from "../assets/bucketbunga.png";
 
 export default function Galeri({ data }) {
   const [slidesAtas, setSlidesAtas] = useState([]);
@@ -34,10 +36,26 @@ export default function Galeri({ data }) {
     setIsLoaded(true);
   }, [data]);
 
-  // 🟢 Tambahan: Jika tidak ada data galeri, hentikan render total
-  if (!data?.galeri || data.galeri.length === 0) {
-    return null;
-  }
+  // RULE LOVE STORY – sama seperti tema Violet
+  const ls = data?.lovestory || {};
+
+  const loveStorySections = [
+    { img: ls.gambar_awal, text: ls.awal_pertemuan, label: "Awal Pertemuan" },
+    { img: ls.gambar_hubungan, text: ls.menjalin_hubungan, label: "Menjalin Hubungan" },
+    { img: ls.gambar_lamaran, text: ls.lamaran, label: "Lamaran" },
+  ];
+
+  const filteredSections = loveStorySections.filter(
+    (s) => s.text && s.text.toString().trim() !== ""
+  );
+
+  const galeriExists =
+    (slidesAtas.length > 0 || slidesBawah.length > 0) && isLoaded;
+
+  const loveStoryTextExists = filteredSections.length > 0;
+
+  // 🔥 Jika galeri kosong & love story kosong → hilang total
+  if (!galeriExists && !loveStoryTextExists) return null;
 
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
@@ -61,23 +79,7 @@ export default function Galeri({ data }) {
   };
 
   const Carousel = ({ slides, currentSlide, setCurrentSlide, setDirection, title, index }) => {
-    if (!slides || slides.length === 0) {
-      return (
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
-          custom={index}
-          className="mb-12"
-        >
-          <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">{title}</h3>
-          <div className="h-80 rounded-2xl overflow-hidden shadow-xl bg-gray-100 flex items-center justify-center">
-            <p className="text-gray-500">Tidak ada gambar</p>
-          </div>
-        </motion.div>
-      );
-    }
+    if (!slides || slides.length === 0) return null;
 
     const nextSlide = () => {
       setDirection("right");
@@ -99,7 +101,7 @@ export default function Galeri({ data }) {
         className="mb-12"
       >
         <motion.h3
-          className="text-2xl font-bold text-gray-900 mb-4 text-center"
+          className="text-2xl font-bold text-brown-900 mb-4 text-center"
           variants={fadeUp}
           custom={index + 0.2}
         >
@@ -126,7 +128,7 @@ export default function Galeri({ data }) {
               <motion.button
                 onClick={prevSlide}
                 className="absolute top-1/2 left-3 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg"
-                whileHover={{ scale: 1.2, boxShadow: "0 0 10px rgba(123,31,162,0.3)" }}
+                whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <FaChevronLeft />
@@ -135,7 +137,7 @@ export default function Galeri({ data }) {
               <motion.button
                 onClick={nextSlide}
                 className="absolute top-1/2 right-3 -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg"
-                whileHover={{ scale: 1.2, boxShadow: "0 0 10px rgba(123,31,162,0.3)" }}
+                whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <FaChevronRight />
@@ -150,7 +152,7 @@ export default function Galeri({ data }) {
               <motion.span
                 key={i}
                 className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                  i === currentSlide ? "bg-hijau-500 w-5" : "bg-gray-400"
+                  i === currentSlide ? "bg-brown-600 w-5" : "bg-gray-400"
                 }`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -163,50 +165,100 @@ export default function Galeri({ data }) {
     );
   };
 
-  if (!isLoaded) {
-    return (
-      <section
-        id="galeri"
-        className="relative min-h-screen flex items-center justify-center p-6 bg-white/50"
-      >
-        <div className="text-center">
-          <h2 className="text-4xl font-bold text-coklat-500 mb-8">Galeri</h2>
-          <p>Loading galeri...</p>
-        </div>
-      </section>
-    );
-  }
-
   return (
     <section
       id="galeri"
-      className="relative min-h-screen flex items-center justify-center p-6 bg-krem/50"
+      className="relative min-h-screen flex items-center justify-center p-6 overflow-hidden"
     >
+        {/* Background */}
+    <div
+      className="absolute inset-0"
+    />
       <div className="max-w-4xl w-full text-center">
-        <motion.h2
-          className="text-4xl font-bold text-hijau-800 mb-8"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          Galeri
-        </motion.h2>
+        
+        {/* GALERI TITLE */}
+        {galeriExists && (
+          <motion.h2
+            className="relative z-10 text-center max-w-md w-full mb-10"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="text-white text-4xl font-semibold mb-5">
+            Galeri</div>
+          </motion.h2>
+        )}
 
-        <Carousel
-          slides={slidesAtas}
-          currentSlide={currentSlide1}
-          setCurrentSlide={setCurrentSlide1}
-          setDirection={setDirection1}
-          index={1}
-        />
+        {/* CAROUSELS */}
+        {galeriExists && (
+          <>
+            <Carousel
+              slides={slidesAtas}
+              currentSlide={currentSlide1}
+              setCurrentSlide={setCurrentSlide1}
+              setDirection={setDirection1}
+              index={1}
+            />
 
-        <Carousel
-          slides={slidesBawah}
-          currentSlide={currentSlide2}
-          setCurrentSlide={setCurrentSlide2}
-          setDirection={setDirection2}
-          index={2}
-        />
+            <Carousel
+              slides={slidesBawah}
+              currentSlide={currentSlide2}
+              setCurrentSlide={setCurrentSlide2}
+              setDirection={setDirection2}
+              index={2}
+            />
+          </>
+        )}
+
+        {/* LOVE STORY */}
+        {loveStoryTextExists && (
+          <motion.div
+            className="relative bg-hijau-500 border-2 border-white rounded-xl p-6 flex flex-col gap-8 shadow-[0_0_25px_rgba(120,72,32,0.45)] mt-12 overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            {/* Bunga Brown */}
+            <img
+              src={bucketbunga}
+              alt="Bunga"
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-20 opacity-90 pointer-events-none z-40"
+            />
+
+            <div className="relative z-10">
+              <h3 className="text-center text-white text-3xl font-bold mt-32">
+                Love Story
+              </h3>
+              <div className="w-full h-[2px] bg-white/60 mb-6"></div>
+            </div>
+
+            <div className="relative z-10 flex flex-col gap-8">
+              {filteredSections.map((section, idx) => (
+                <div key={idx} className="flex flex-col gap-4">
+                  {section.img && (
+                    <img
+                      src={section.img}
+                      alt={section.label}
+                      className="w-full rounded-xl object-cover shadow-lg"
+                    />
+                  )}
+
+                  <h4 className="text-white text-2xl font-semibold">
+                    {section.label}
+                  </h4>
+
+                  <p className="text-white text-lg leading-relaxed">
+                    {section.text}
+                  </p>
+
+                  {idx < filteredSections.length - 1 && (
+                    <div className="w-full h-[1px] bg-white/30 my-2"></div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </div>
     </section>
   );
