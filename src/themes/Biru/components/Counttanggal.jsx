@@ -73,8 +73,60 @@ export default function Counttanggal({ data }) {
           <p className="text-gray-700 text-center mb-6">
             {data?.counting?.nama_surat || "Al-(Q.S. Ar-Rum: 21)"}
           </p>
+
+          <div className="flex justify-center gap-3 mb-6">
+            <CounterBox value={timeLeft.days} label="Hari" />
+            <CounterBox value={timeLeft.hours} label="Jam" />
+            <CounterBox value={timeLeft.minutes} label="Menit" />
+            <CounterBox value={timeLeft.seconds} label="Detik" />
+          </div>
+
         </div>
       </motion.div>
     </section>
+  );
+}
+
+/* ==== CounterBox (tetap elegan) ==== */
+function CounterBox({ value, label }) {
+  const count = useMotionValue(value);
+  const [displayValue, setDisplayValue] = useState(value);
+  const prevValue = useRef(value);
+
+  useEffect(() => {
+    if (prevValue.current !== value) {
+      const controls = animate(count, value, {
+        duration: 0.4,
+        ease: "easeOut",
+        onUpdate: (latest) => setDisplayValue(Math.round(latest)),
+      });
+      prevValue.current = value;
+      return () => controls.stop();
+    } else {
+      setDisplayValue(value);
+    }
+  }, [value]);
+
+  return (
+    <motion.div
+      className="text-center"
+      initial={{ opacity: 0, y: 20, scale: 0.95 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      whileHover={{
+        scale: 1.05,
+        boxShadow: "0 0 15px rgba(147, 51, 234, 0.35)",
+      }}
+    >
+      <motion.div
+        className="bg-biru-500 rounded-lg shadow-md p-2 min-w-[65px] backdrop-blur-sm"
+        transition={{ type: "spring", stiffness: 250, damping: 20 }}
+      >
+        <div className="text-xl font-bold text-white">
+          {displayValue.toString().padStart(2, "0")}
+        </div>
+      </motion.div>
+      <div className="text-xs text-black mt-1">{label}</div>
+    </motion.div>
   );
 }

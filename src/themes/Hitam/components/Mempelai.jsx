@@ -34,7 +34,7 @@ export default function Mempelai({ data }) {
 
         {/* Deskripsi */}
         <motion.p
-          className="text-sm leading-relaxed mt-3 font-sans text-hijau-800"
+          className="text-sm leading-relaxed mt-3 font-sans text--800"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
@@ -73,7 +73,7 @@ export default function Mempelai({ data }) {
               transition={{ type: "spring", stiffness: 200 }}
             >
               <motion.img
-                src={laki}
+                src={fotoPria}
                 alt="Mempelai Pria"
                 className="w-full h-full object-cover"
                 onError={(e) => (e.target.src = laki)}
@@ -127,7 +127,7 @@ export default function Mempelai({ data }) {
               transition={{ type: "spring", stiffness: 200 }}
             >
               <motion.img
-                src={cewe}
+                src={fotoWanita}
                 alt="Mempelai Wanita"
                 className="w-full h-full object-cover"
                 onError={(e) => (e.target.src = cewe)}

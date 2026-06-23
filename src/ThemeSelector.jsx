@@ -9,6 +9,7 @@ import Jawaapp from "./themes/Jawa/App";
 import Biruapp from "./themes/Biru/App";
 import Hitamapp from "./themes/Hitam/App";
 import Pinkapp from "./themes/Pink/App";
+import Baliapp from "./themes/Bali/App";
 
 export default function ThemeSelector({ data }) {
   const theme = data?.slug?.theme?.toLowerCase() || "violet";
@@ -27,6 +28,8 @@ export default function ThemeSelector({ data }) {
       return <Hitamapp data={data} />;
     case "pink":
       return <Pinkapp data={data} />;
+    case "bali":
+      return <Baliapp data={data} />;
     
       default:
       console.warn(`⚠️ Theme "${theme}" not found, fallback to Violet`);
