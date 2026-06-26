@@ -137,7 +137,7 @@ export default function LoveGift({ data: propData }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <div className="bg-biru-500/70 backdrop-blur-md border rounded-3xl shadow-md inline-block px-8 py-6 mb-28 max-w-2xl mx-auto">
+          <div className="bg-hitam-500/70 backdrop-blur-md border rounded-3xl shadow-md inline-block px-8 py-6 mb-28 max-w-2xl mx-auto">
             <h1 className="font-estetik text-5xl mb-4 text-white">Love Gift</h1>
             <p className="text-white leading-relaxed">
               Tanpa mengurangi rasa hormat, bagi anda yang ingin memberikan tanda kasih untuk kami,
