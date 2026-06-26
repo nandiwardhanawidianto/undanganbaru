@@ -52,7 +52,7 @@ export default function MusicPlayer({ data }) {
       <div className="fixed right-6 bottom-16 z-50">
         <button
           onClick={togglePlayPause}
-          className="bg-white/90 hover:bg-white text-biru-500 rounded-full p-4 shadow-2xl border-2 border-biru-600 transition-all duration-300 hover:scale-110"
+          className="bg-white/90 hover:bg-white text-hitam-500 rounded-full p-4 shadow-2xl border-2 border-hitam-500 transition-all duration-300 hover:scale-110"
         >
           {isPlaying ? <FaPause className="text-xl" /> : <FaPlay className="text-xl" />}
         </button>
