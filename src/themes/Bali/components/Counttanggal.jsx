@@ -47,7 +47,7 @@ export default function Counttanggal({ data }) {
     >
       {/* card utama */}
       <motion.div
-        className="relative z-10 max-w-[360px] w-full bg-white border-4 border-pink-500 rounded-[60px] overflow-hidden shadow-lg"
+        className="relative z-10 max-w-[360px] w-full bg-white border-4 border-bali-500 rounded-[60px] overflow-hidden shadow-lg"
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
@@ -119,7 +119,7 @@ function CounterBox({ value, label }) {
       }}
     >
       <motion.div
-        className="bg-pink-500 rounded-lg shadow-md p-2 min-w-[65px] backdrop-blur-sm"
+        className="bg-bali-500 rounded-lg shadow-md p-2 min-w-[65px] backdrop-blur-sm"
         transition={{ type: "spring", stiffness: 250, damping: 20 }}
       >
         <div className="text-xl font-bold text-white">

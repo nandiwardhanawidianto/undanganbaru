@@ -21,7 +21,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed bottom-0 w-full z-50 rounded-t-2xl bg-pink-500 text-white shadow-lg">
+    <nav className="fixed bottom-0 w-full z-50 rounded-t-2xl bg-bali-500 text-white shadow-lg">
       <ul className="flex justify-around">
         {navItems.map((item, index) => (
           <motion.li

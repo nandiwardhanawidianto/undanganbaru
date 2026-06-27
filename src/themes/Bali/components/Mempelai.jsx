@@ -68,7 +68,7 @@ export default function Mempelai({ data }) {
 
             {/* Bingkai foto */}
             <motion.div
-              className="relative z-10 overflow-hidden border-4 border-pink-500 shadow-md shadow-black/30 rounded-full w-full h-full"
+              className="relative z-10 overflow-hidden border-4 border-bali-500 shadow-md shadow-black/30 rounded-full w-full h-full"
               whileHover={{ scale: 1.04 }}
               transition={{ type: "spring", stiffness: 200 }}
             >
@@ -85,7 +85,7 @@ export default function Mempelai({ data }) {
             </motion.div>
           </div>
 
-          <h3 className="text-3xl mb-2 font-bold text-pink-500">
+          <h3 className="text-3xl mb-2 font-bold text-bali-500">
             {hero.nama_lengkap_pria || "Nama Pria"}
           </h3>
           <p className="text-lg">{hero.orangtua_pria || "Orangtua Pria"}</p>
@@ -93,7 +93,7 @@ export default function Mempelai({ data }) {
 
         {/* Simbol & */}
         <motion.div
-          className="text-5xl font-cursive font-bold text-pink-500"
+          className="text-5xl font-cursive font-bold text-bali-500"
           animate={{ scale: [1, 1.08, 1] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -122,7 +122,7 @@ export default function Mempelai({ data }) {
 
             {/* Bingkai foto */}
             <motion.div
-              className="relative z-10 overflow-hidden border-4 border-pink-500 shadow-md shadow-black/30 rounded-full w-full h-full"
+              className="relative z-10 overflow-hidden border-4 border-bali-500 shadow-md shadow-black/30 rounded-full w-full h-full"
               whileHover={{ scale: 1.04 }}
               transition={{ type: "spring", stiffness: 200 }}
             >
@@ -139,7 +139,7 @@ export default function Mempelai({ data }) {
             </motion.div>
           </div>
 
-          <h3 className="text-3xl font-bold mb-2 text-pink-500">
+          <h3 className="text-3xl font-bold mb-2 text-bali-500">
             {hero.nama_lengkap_wanita || "Nama Wanita"}
           </h3>
           <p className="text-lg">{hero.orangtua_wanita || "Orangtua Wanita"}</p>

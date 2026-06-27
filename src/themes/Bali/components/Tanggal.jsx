@@ -127,7 +127,7 @@ export default function Tanggal({ data }) {
               {/* Isi acara */}
               <div className="absolute inset-0 flex items-center justify-center p-8">
                 <motion.div
-                  className="text-center text-white rounded-3xl px-6 py-8"
+                  className="text-center text-bali-500 rounded-3xl px-6 py-8"
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
@@ -143,7 +143,7 @@ export default function Tanggal({ data }) {
                   <p className="text-lg mb-4">Pukul {acara.pukul_acara}</p>
 
                   <div className="mt-3 flex flex-col items-center text-base">
-                    <SiGooglemaps className="text-pink-500 w-8 h-8 mb-1" />
+                    <SiGooglemaps className="text-bali-500 w-8 h-8 mb-1" />
                     <p>Bertempat di</p>
                     <p className="font-semibold">{acara.alamat_acara}</p>
                   </div>
@@ -153,7 +153,7 @@ export default function Tanggal({ data }) {
                       href={acara.link_acara}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 bg-pink-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:bg-pink-500 hover:shadow-lg transition-all mt-5"
+                      className="inline-flex items-center justify-center gap-2 bg-bali-500 text-white font-medium py-2 px-6 rounded-full shadow-md hover:bg-bali-500 hover:shadow-lg transition-all mt-5"
                     >
                       <TbMapSearch className="text-lg" />
                       Google Maps
@@ -197,10 +197,10 @@ function CountBox({ value, label }) {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="bg-krem/90 rounded-xl shadow-md p-3 min-w-[70px] backdrop-blur-sm">
-        <div className="text-xl font-bold text-pink-500">
+        <div className="text-xl font-bold text-bali-500">
           {displayValue.toString().padStart(2, "0")}
         </div>
-        <div className="text-base text-pink-500 mt-1">{label}</div>
+        <div className="text-base text-bali-500 mt-1">{label}</div>
       </div>
     </motion.div>
   );
