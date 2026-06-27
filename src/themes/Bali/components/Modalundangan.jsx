@@ -57,7 +57,7 @@ export default function ModalUndangan({ data, onBukaUndangan }) {
       <div className="relative z-10 text-center text-white max-w-md mb-4 pb-10">
         <div className="relative flex flex-col items-center justify-center">
           <motion.div
-            className="text-pink-500 text-2xl mb-4 font-semibold tracking-wider font-judul"
+            className="text-bali-500 text-2xl mb-4 font-semibold tracking-wider font-judul"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.45, ease: "easeOut" }}
@@ -66,7 +66,7 @@ export default function ModalUndangan({ data, onBukaUndangan }) {
           </motion.div>
 
           <motion.div
-            className="text-4xl italic font-display text-pink-500 mb-8 leading-relaxed"
+            className="text-4xl italic font-display text-bali-500 mb-8 leading-relaxed"
             initial={{ opacity: 0, y: 12, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ delay: 0.6, duration: 0.55, ease: "easeOut" }}
@@ -84,17 +84,17 @@ export default function ModalUndangan({ data, onBukaUndangan }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.45, ease: "easeOut" }}
           >
-            <p className="text-xl text-pink-500 font-medium">
+            <p className="text-xl text-bali-500 font-medium">
               Kepada Yth. Bapak/Ibu/Saudara/i
             </p>
-            <p className="text-2xl italic text-pink-500 mt-3 font-semibold">
+            <p className="text-2xl italic text-bali-500 mt-3 font-semibold">
               {namaTamu}
             </p>
           </motion.div>
 
           <motion.button
             onClick={handleBuka}
-            className="text-white px-10 py-4 rounded-full font-bold hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto border-2 border-white bg-pink-500 hover:bg-pink-500 shadow-xl shadow-black/40"
+            className="text-white px-10 py-4 rounded-full font-bold hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto border-2 border-white bg-bali-500 hover:bg-bali-500 shadow-xl shadow-black/40"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.45, ease: "easeOut" }}

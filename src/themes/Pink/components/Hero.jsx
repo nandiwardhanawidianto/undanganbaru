@@ -17,10 +17,6 @@ export default function Hero({ data }) {
     : "-";
 
   const lottieRef = useRef(null); `
-  
-  
-  
-  
   6960
   
   696091`

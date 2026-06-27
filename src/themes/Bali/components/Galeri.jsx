@@ -219,7 +219,7 @@ export default function Galeri({ data }) {
         {/* LOVE STORY */}
         {loveStoryTextExists && (
           <motion.div
-            className="relative bg-pink-500 border-2 border-white rounded-xl p-6 flex flex-col gap-8 shadow-[0_0_25px_rgba(120,72,32,0.45)] mt-12 overflow-hidden"
+            className="relative bg-bali-500 border-2 border-white rounded-xl p-6 flex flex-col gap-8 shadow-[0_0_25px_rgba(120,72,32,0.45)] mt-12 overflow-hidden"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
