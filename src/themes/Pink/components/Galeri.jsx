@@ -40,9 +40,21 @@ export default function Galeri({ data }) {
   const ls = data?.lovestory || {};
 
   const loveStorySections = [
-    { img: ls.gambar_awal, text: ls.awal_pertemuan, label: "Awal Pertemuan" },
-    { img: ls.gambar_hubungan, text: ls.menjalin_hubungan, label: "Menjalin Hubungan" },
-    { img: ls.gambar_lamaran, text: ls.lamaran, label: "Lamaran" },
+    {
+      img: ls.gambar_awal,
+      text: ls.awal_pertemuan,
+      label: ls.judul_awal_pertemuan || "Awal Pertemuan",
+    },
+    {
+      img: ls.gambar_hubungan,
+      text: ls.menjalin_hubungan,
+      label: ls.judul_menjalin_hubungan || "Menjalin Hubungan",
+    },
+    {
+      img: ls.gambar_lamaran,
+      text: ls.lamaran,
+      label: ls.judul_lamaran || "Lamaran",
+    },
   ];
 
   const filteredSections = loveStorySections.filter(
