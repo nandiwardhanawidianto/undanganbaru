@@ -39,9 +39,11 @@ export default function Mempelai({ data }) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
         >
-          Maha Suci Allah SWT yang telah menciptakan makhluk-Nya berpasangan-pasangan.
-          Dengan rasa hormat, dengan ini kami bermaksud mengundang
-          Bapak/Ibu/Saudara/i untuk hadir pada acara pernikahan kami :
+          Dengan penuh rasa syukur kepada Tuhan Yang Maha Esa,
+          dengan hormat kami bermaksud mengundang
+          Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu
+          pada acara kami:
+
         </motion.p>
 
         <br />
