@@ -79,12 +79,30 @@ export default function Hitam2App({ data }) {
   const dateParts = formatEventDate(firstEvent?.tanggal_acara);
   const story = data?.lovestory || {};
   const storyItems = [
-    { title: "Awal Pertemuan", text: story.awal_pertemuan, image: story.gambar_awal },
-    { title: "Menjalin Hubungan", text: story.menjalin_hubungan, image: story.gambar_hubungan },
-    { title: "Lamaran", text: story.lamaran, image: story.gambar_lamaran },
+    {
+      title: story.judul_awal_pertemuan || "Awal Pertemuan",
+      text: story.awal_pertemuan,
+      image: story.gambar_awal,
+    },
+    {
+      title: story.judul_menjalin_hubungan || "Menjalin Hubungan",
+      text: story.menjalin_hubungan,
+      image: story.gambar_hubungan,
+    },
+    {
+      title: story.judul_lamaran || "Lamaran",
+      text: story.lamaran,
+      image: story.gambar_lamaran,
+    },
   ].filter((x) => x.text || x.image);
 
   const quotePhotos = photos.slice(0, 5);
+
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      console.log("[Hitam2] API data:", data);
+    }
+  }, [data]);
 
   if (!data) return <div className="p-10 text-center">404...</div>;
 
@@ -128,6 +146,11 @@ export default function Hitam2App({ data }) {
           <img src={bunga} alt="" className="absolute -left-20 top-16 w-48 grayscale opacity-55" />
           <img src={bunga} alt="" className="absolute -right-24 top-0 w-52 rotate-180 grayscale opacity-45" />
 
+          {data?.counting?.surat_arab && (
+            <p className="relative z-10 mx-auto mb-5 max-w-sm text-lg leading-8">
+              {data.counting.surat_arab}
+            </p>
+          )}
           <p className="relative z-10 mx-auto max-w-sm text-sm italic leading-6">
             {data?.counting?.deskripsi_surat ||
               "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."}
