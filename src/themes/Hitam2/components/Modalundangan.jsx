@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FaEnvelope } from "react-icons/fa";
-import bunga from "../../Hitam/assets/bungahitam.png";
 
 const galleryPhotos = (data) => {
   const g = data?.galeri?.[0] || {};
@@ -45,42 +44,68 @@ export default function ModalUndangan({ data, onBukaUndangan }) {
         <img src={bg} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/20 to-black/85" />
 
-        <img
-          src={bunga}
-          alt=""
-          className="pointer-events-none absolute -right-24 -top-20 w-72 opacity-80 grayscale"
-        />
-        <img
-          src={bunga}
-          alt=""
-          className="pointer-events-none absolute -bottom-24 -left-24 w-72 rotate-180 opacity-80 grayscale"
-        />
-
         <div className="absolute inset-9 border border-dashed border-[#d6aa78]/90" />
 
         <div className="relative z-10 flex h-full flex-col items-center justify-center px-10 text-center text-white">
-          <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em]">The Wedding Of</p>
-          <h1 className="font-cursive text-6xl leading-[0.95] text-[#d6aa78]">
-            {hero?.nama_panggilan_pria || "Mempelai"}
-          </h1>
-          <div className="my-1 font-cursive text-5xl text-[#d6aa78]">&amp;</div>
-          <h1 className="font-cursive text-6xl leading-[0.95] text-[#d6aa78]">
-            {hero?.nama_panggilan_wanita || ""}
-          </h1>
+          <motion.p
+            className="mb-2 text-[11px] font-semibold uppercase tracking-[0.28em]"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.55, ease: "easeOut" }}
+          >
+            The Wedding Of
+          </motion.p>
 
-          <div className="mt-24">
+          <motion.h1
+            className="font-cursive text-6xl leading-[0.95] text-[#d6aa78]"
+            initial={{ opacity: 0, y: 22, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.65, ease: "easeOut" }}
+          >
+            {hero?.nama_panggilan_pria || "Mempelai"}
+          </motion.h1>
+
+          <motion.div
+            className="my-1 font-cursive text-5xl text-[#d6aa78]"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.45, duration: 0.5, ease: "easeOut" }}
+          >
+            &amp;
+          </motion.div>
+
+          <motion.h1
+            className="font-cursive text-6xl leading-[0.95] text-[#d6aa78]"
+            initial={{ opacity: 0, y: 22, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.55, duration: 0.65, ease: "easeOut" }}
+          >
+            {hero?.nama_panggilan_wanita || ""}
+          </motion.h1>
+
+          <motion.div
+            className="mt-24"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.75, duration: 0.6, ease: "easeOut" }}
+          >
             <p className="text-sm">Kepada Yth.</p>
             <p className="text-sm">Bapak/Ibu/Saudara/i</p>
             <p className="mt-4 text-2xl font-medium">{namaTamu}</p>
-          </div>
+          </motion.div>
 
-          <button
+          <motion.button
             onClick={open}
             className="mt-8 inline-flex items-center gap-2 rounded-sm bg-[#d6aa78] px-6 py-3 text-sm font-semibold text-white shadow-lg"
+            initial={{ opacity: 0, y: 16, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.95, duration: 0.55, ease: "easeOut" }}
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.97 }}
           >
             <FaEnvelope />
             Buka Undangan
-          </button>
+          </motion.button>
         </div>
       </div>
     </motion.div>
