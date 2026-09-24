@@ -1,10 +1,10 @@
-import { FaHouseChimney, FaRingsWedding, FaCalendarDays, FaImages, FaComments } from "react-icons/fa6";
+import { FaHome, FaHeart, FaCalendarAlt, FaImages, FaComments } from "react-icons/fa";
 
 export default function Navbar() {
   const items = [
-    { id: "home", label: "Cover", icon: <FaHouseChimney /> },
-    { id: "mempelai", label: "Couple", icon: <FaRingsWedding /> },
-    { id: "tanggal", label: "Event", icon: <FaCalendarDays /> },
+    { id: "home", label: "Cover", icon: <FaHome /> },
+    { id: "mempelai", label: "Couple", icon: <FaHeart /> },
+    { id: "tanggal", label: "Event", icon: <FaCalendarAlt /> },
     { id: "galeri", label: "Gallery", icon: <FaImages /> },
     { id: "ucapan", label: "Wishes", icon: <FaComments /> },
   ];
