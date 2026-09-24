@@ -9,6 +9,7 @@ const BrownApp = lazy(() => import("./themes/Brown/App"));
 const JawaApp = lazy(() => import("./themes/Jawa/App"));
 const BiruApp = lazy(() => import("./themes/Biru/App"));
 const HitamApp = lazy(() => import("./themes/Hitam/App"));
+const Hitam2App = lazy(() => import("./themes/Hitam2/App"));
 const PinkApp = lazy(() => import("./themes/Pink/App"));
 const BaliApp = lazy(() => import("./themes/Bali/App"));
 const BugisApp = lazy(() => import("./themes/Bugis/App"));
@@ -46,6 +47,10 @@ export default function ThemeSelector({ data }) {
 
     case "hitam":
       SelectedTheme = HitamApp;
+      break;
+
+    case "hitam2":
+      SelectedTheme = Hitam2App;
       break;
 
     case "pink":
