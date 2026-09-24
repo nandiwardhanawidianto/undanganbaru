@@ -1,38 +1,93 @@
 // src/ThemeSelector.jsx
-import React from "react";
 
-// Import semua tema yang sudah ada
-import VioletApp from "./themes/Violet/App";
-import Sageapp from "./themes/Sage/App";
-import Brownapp from "./themes/Brown/App";
-import Jawaapp from "./themes/Jawa/App";
-import Biruapp from "./themes/Biru/App";
-import Hitamapp from "./themes/Hitam/App";
-import Pinkapp from "./themes/Pink/App";
-import Baliapp from "./themes/Bali/App";
+import React, { lazy, Suspense } from "react";
+
+const VioletApp = lazy(() => import("./themes/Violet/App"));
+const CustomVioletApp = lazy(() => import("./themes/CustomViolet/App"));
+const SageApp = lazy(() => import("./themes/Sage/App"));
+const BrownApp = lazy(() => import("./themes/Brown/App"));
+const JawaApp = lazy(() => import("./themes/Jawa/App"));
+const BiruApp = lazy(() => import("./themes/Biru/App"));
+const HitamApp = lazy(() => import("./themes/Hitam/App"));
+const PinkApp = lazy(() => import("./themes/Pink/App"));
+const BaliApp = lazy(() => import("./themes/Bali/App"));
+const BugisApp = lazy(() => import("./themes/Bugis/App"));
+const BatakApp = lazy(() => import("./themes/Batak/App"));
 
 export default function ThemeSelector({ data }) {
-  const theme = data?.slug?.theme?.toLowerCase() || "violet";
+  const theme = data?.slug?.theme?.toLowerCase()?.trim() || "violet";
+
+  let SelectedTheme;
+
   switch (theme) {
     case "violet":
-      return <VioletApp data={data} />;
+      SelectedTheme = VioletApp;
+      break;
+
+    case "customviolet":
+      SelectedTheme = CustomVioletApp;
+      break;
+
     case "sage":
-      return <Sageapp data={data} />;
+      SelectedTheme = SageApp;
+      break;
+
     case "brown":
-      return <Brownapp data={data} />;
+      SelectedTheme = BrownApp;
+      break;
+
     case "jawa":
-      return <Jawaapp data={data} />;
+      SelectedTheme = JawaApp;
+      break;
+
     case "biru":
-      return <Biruapp data={data} />;
+      SelectedTheme = BiruApp;
+      break;
+
     case "hitam":
-      return <Hitamapp data={data} />;
+      SelectedTheme = HitamApp;
+      break;
+
     case "pink":
-      return <Pinkapp data={data} />;
+      SelectedTheme = PinkApp;
+      break;
+
     case "bali":
-      return <Baliapp data={data} />;
-    
-      default:
-      console.warn(`⚠️ Theme "${theme}" not found, fallback to Violet`);
-      return <VioletApp data={data} />;
+      SelectedTheme = BaliApp;
+      break;
+
+    case "bugis":
+      SelectedTheme = BugisApp;
+      break;
+
+    case "batak":
+      SelectedTheme = BatakApp;
+      break;
+
+    default:
+      console.warn(
+        `Theme "${theme}" not found, fallback to Violet`
+      );
+      SelectedTheme = VioletApp;
+      break;
   }
+
+  return (
+    <Suspense
+      fallback={
+        <div
+          style={{
+            minHeight: "100vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Loading...
+        </div>
+      }
+    >
+      <SelectedTheme data={data} />
+    </Suspense>
+  );
 }

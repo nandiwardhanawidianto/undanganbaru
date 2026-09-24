@@ -52,6 +52,16 @@ export default {
           700: '#EDDBD5',
           800: '#964A54',
         },
+        bugis: {  
+          500: '#E3A429',
+          600: '#FFFFFF',
+          700: '#A89D7E',
+          800: '#8C7F63',
+        },
+        batak: {
+          500: '#EFC97D',
+          600: '#481515',
+        },
       },
       fontFamily: {                  
         display: ['Playfair Display', 'cursive'],

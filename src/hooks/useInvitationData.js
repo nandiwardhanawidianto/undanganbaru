@@ -18,6 +18,7 @@ export default function useInvitationData() {
         setError(null);
 
         const API_URL = `https://cms.royalweddinginvitiation.com/api/slug/${slug}/listapi`;
+        //  const API_URL = `http://127.0.0.1:8000/api/slug/${slug}/listapi`;
         const response = await fetch(API_URL, {
           headers: {
             Accept: "application/json",
