@@ -4,6 +4,7 @@ import bunga from "../assets/Bunga.png";
 export default function Mempelai({ data }) {
   const hero = data?.heroInvitation || {};
 
+
   return (
     <section id="mempelai" className="relative min-h-screen flex items-center justify-center p-6">
       <div className="absolute inset-0" />
