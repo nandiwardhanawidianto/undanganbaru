@@ -7,13 +7,5 @@ export default defineConfig({
   plugins: [svgr(), react(), flowbiteReact()],
   server: {
     historyApiFallback: true, // biar route seperti /reva diarahkan ke index.html
-    proxy: {
-      "/cms-api": {
-        target: "https://cms.royalweddinginvitiation.com",
-        changeOrigin: true,
-        secure: true,
-        rewrite: (path) => path.replace(/^\\/cms-api/, "/api"),
-      },
-    },
   },
 });
