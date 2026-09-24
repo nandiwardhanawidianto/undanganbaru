@@ -16,7 +16,20 @@ const BugisApp = lazy(() => import("./themes/Bugis/App"));
 const BatakApp = lazy(() => import("./themes/Batak/App"));
 
 export default function ThemeSelector({ data }) {
-  const theme = data?.slug?.theme?.toLowerCase()?.trim() || "violet";
+  // Development-only theme override.
+  // Example: /real-slug?previewTheme=hitam2
+  // The real slug is still used by useInvitationData, so all API data stays intact.
+  const previewTheme = import.meta.env.DEV
+    ? new URLSearchParams(window.location.search)
+        .get("previewTheme")
+        ?.toLowerCase()
+        ?.trim()
+    : null;
+
+  const theme =
+    previewTheme ||
+    data?.slug?.theme?.toLowerCase()?.trim() ||
+    "violet";
 
   let SelectedTheme;
 
