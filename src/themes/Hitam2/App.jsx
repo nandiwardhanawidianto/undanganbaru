@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import ModalUndangan from "./components/Modalundangan";
 import Navbar from "./components/Navbar";
@@ -63,6 +64,20 @@ function Countdown({ date }) {
   );
 }
 
+const reveal = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.22 },
+  transition: { duration: 0.7, ease: "easeOut" },
+};
+
+const revealSoft = {
+  initial: { opacity: 0, y: 16, scale: 0.98 },
+  whileInView: { opacity: 1, y: 0, scale: 1 },
+  viewport: { once: true, amount: 0.22 },
+  transition: { duration: 0.65, ease: "easeOut" },
+};
+
 export default function Hitam2App({ data }) {
   const [showModal, setShowModal] = useState(true);
   const hero = data?.heroInvitation || {};
@@ -124,7 +139,7 @@ export default function Hitam2App({ data }) {
             <img src={bunga} alt="" className="absolute -right-24 top-0 w-52 rotate-180 grayscale opacity-50" />
           </div>
 
-          <div className="relative -mt-28 px-9 text-center text-white">
+          <motion.div className="relative -mt-28 px-9 text-center text-white" {...reveal}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em]">The Wedding Of</p>
             <h1 className="mt-2 font-cursive text-5xl text-[#cda679]">
               {hero?.nama_panggilan_pria || "Mempelai"} &amp; {hero?.nama_panggilan_wanita || ""}
@@ -138,7 +153,7 @@ export default function Hitam2App({ data }) {
 
             <p className="mt-5 text-base font-semibold uppercase tracking-[0.25em]">Save The Date</p>
             <Countdown date={firstEvent?.tanggal_acara} />
-          </div>
+          </motion.div>
         </section>
 
         <section className="relative overflow-hidden bg-[#1f1f1f] px-7 py-16 text-center text-white">
@@ -146,8 +161,9 @@ export default function Hitam2App({ data }) {
           <img src={bunga} alt="" className="absolute -left-20 top-16 w-48 grayscale opacity-55" />
           <img src={bunga} alt="" className="absolute -right-24 top-0 w-52 rotate-180 grayscale opacity-45" />
 
+          <motion.div className="relative z-10" {...reveal}>
           {data?.counting?.surat_arab && (
-            <p className="relative z-10 mx-auto mb-5 max-w-sm text-lg leading-8">
+            <p className="mx-auto mb-5 max-w-sm text-lg leading-8">
               {data.counting.surat_arab}
             </p>
           )}
@@ -155,16 +171,17 @@ export default function Hitam2App({ data }) {
             {data?.counting?.deskripsi_surat ||
               "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya."}
           </p>
-          <p className="relative z-10 mt-2 text-xs font-semibold">
+          <p className="mt-2 text-xs font-semibold">
             {data?.counting?.nama_surat || "(QS. Ar-Rum: 21)"}
           </p>
+          </motion.div>
 
           {quotePhotos.length > 0 && (
-            <div className="relative z-10 mt-12 flex justify-center -space-x-2">
+            <motion.div className="relative z-10 mt-12 flex justify-center -space-x-2" {...revealSoft}>
               {quotePhotos.map((src, i) => (
                 <img key={i} src={src} alt="" className="h-20 w-20 rounded-full border-2 border-white object-cover" />
               ))}
-            </div>
+            </motion.div>
           )}
         </section>
 
@@ -185,7 +202,7 @@ export default function Hitam2App({ data }) {
               parents: hero?.orangtua_wanita,
             },
           ].map((person, i) => (
-            <div key={i} className={i ? "mt-16" : ""}>
+            <motion.div key={i} className={i ? "mt-16" : ""} {...revealSoft}>
               {person.photo && (
                 <img
                   src={person.photo}
@@ -197,23 +214,25 @@ export default function Hitam2App({ data }) {
               <h3 className="mt-1 font-display text-2xl text-[#33403d]">{person.full}</h3>
               {person.parents && <p className="mx-auto mt-3 max-w-xs text-sm leading-6">{person.parents}</p>}
               {i === 0 && <div className="mt-10 font-cursive text-5xl text-[#777]">-&amp;-</div>}
-            </div>
+            </motion.div>
           ))}
         </section>
 
         <section id="tanggal" className="relative bg-[#fafafa] px-6 py-14">
-          <div className="mb-6 flex items-center gap-3">
+          <motion.div className="mb-6 flex items-center gap-3" {...reveal}>
             <h2 className="font-display text-5xl leading-[0.8] text-[#888]">Wedding<br />Event</h2>
             <div className="h-px flex-1 bg-[#888]" />
-          </div>
+          </motion.div>
 
           <div className="space-y-12">
             {events.map((event, i) => {
               const p = formatEventDate(event.tanggal_acara);
               return (
-                <div
+                <motion.div
                   key={event.id || i}
                   className="mx-auto min-h-[480px] max-w-[350px] rounded-t-[180px] bg-[#3d3c3b] px-5 pb-10 pt-16 text-center text-white shadow-xl"
+                  {...revealSoft}
+                  transition={{ duration: 0.7, ease: "easeOut", delay: Math.min(i * 0.08, 0.24) }}
                 >
                   <h3 className="font-display text-4xl italic">{event.nama_acara}</h3>
                   <div className="mx-auto mt-3 h-[3px] w-36 border-t border-dashed border-white/70" />
@@ -238,7 +257,7 @@ export default function Hitam2App({ data }) {
                       <FaMapMarkerAlt /> GOOGLE MAPS
                     </a>
                   )}
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -246,10 +265,10 @@ export default function Hitam2App({ data }) {
 
         {storyItems.length > 0 && (
           <section className="bg-[#515151] px-4 py-12 text-center text-white">
-            <h2 className="font-display text-5xl">Love Story</h2>
+            <motion.h2 className="font-display text-5xl" {...reveal}>Love Story</motion.h2>
             <div className="mx-auto mt-8 max-w-sm space-y-10">
               {storyItems.map((item, i) => (
-                <div key={i}>
+                <motion.div key={i} {...revealSoft}>
                   {item.image && (
                     <img
                       src={item.image}
@@ -259,7 +278,7 @@ export default function Hitam2App({ data }) {
                   )}
                   <h3 className="mt-6 text-base font-bold uppercase tracking-[0.12em]">{item.title}</h3>
                   {item.text && <p className="mt-4 text-sm leading-5">{item.text}</p>}
-                </div>
+                </motion.div>
               ))}
             </div>
           </section>
@@ -267,10 +286,10 @@ export default function Hitam2App({ data }) {
 
         {photos.length > 0 && (
           <section id="galeri" className="bg-[#fbfbfb] px-3 py-12">
-            <div className="mb-8 flex items-center gap-3">
+            <motion.div className="mb-8 flex items-center gap-3" {...reveal}>
               <div className="h-px w-36 bg-[#888]" />
               <h2 className="font-display text-5xl italic text-[#768096]">Gallery</h2>
-            </div>
+            </motion.div>
             <div className="grid grid-cols-2 gap-1">
               {photos.map((src, i) => (
                 <img
@@ -288,17 +307,17 @@ export default function Hitam2App({ data }) {
         <LoveGift data={data} />
 
         <footer className="relative bg-[#f3f3f3] px-8 pb-24 pt-16 text-center text-[#777]">
-          <p className="mx-auto max-w-sm text-sm leading-6">
+          <motion.p className="mx-auto max-w-sm text-sm leading-6" {...reveal}>
             Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir
             dan memberikan doa restu kepada kedua mempelai.
-          </p>
-          <p className="mt-7 text-sm">The Wedding of</p>
-          <h2 className="mt-5 font-cursive text-5xl text-[#6f6f6f]">
+          </motion.p>
+          <motion.p className="mt-7 text-sm" {...revealSoft}>The Wedding of</motion.p>
+          <motion.h2 className="mt-5 font-cursive text-5xl text-[#6f6f6f]" {...revealSoft}>
             {hero?.nama_panggilan_pria || ""} &amp; {hero?.nama_panggilan_wanita || ""}
-          </h2>
-          <div className="mt-10 border-t border-[#aaa] pt-6 text-xs">
+          </motion.h2>
+          <motion.div className="mt-10 border-t border-[#aaa] pt-6 text-xs" {...revealSoft}>
             © 2026 Made With Love by Royal Wedding Invitation
-          </div>
+          </motion.div>
         </footer>
       </div>
     </>
