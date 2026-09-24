@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { FaClock, FaLocationDot, FaMapLocationDot } from "react-icons/fa6";
+import { FaClock, FaMapMarkerAlt } from "react-icons/fa";
 import ModalUndangan from "./components/Modalundangan";
 import Navbar from "./components/Navbar";
 import LoveGift from "./components/Lovegift";
@@ -203,7 +203,7 @@ export default function Hitam2App({ data }) {
                   <p className="mt-5 flex items-center justify-center gap-2 text-lg">
                     <FaClock /> {event.pukul_acara}
                   </p>
-                  <FaLocationDot className="mx-auto mt-7 text-3xl" />
+                  <FaMapMarkerAlt className="mx-auto mt-7 text-3xl" />
                   <p className="mt-2 text-sm font-semibold">{event.alamat_acara}</p>
                   {event.link_acara && (
                     <a
@@ -212,7 +212,7 @@ export default function Hitam2App({ data }) {
                       rel="noreferrer"
                       className="mx-auto mt-7 inline-flex items-center gap-2 bg-[#f6f2ea] px-4 py-2 text-sm font-semibold text-[#777]"
                     >
-                      <FaMapLocationDot /> GOOGLE MAPS
+                      <FaMapMarkerAlt /> GOOGLE MAPS
                     </a>
                   )}
                 </div>
