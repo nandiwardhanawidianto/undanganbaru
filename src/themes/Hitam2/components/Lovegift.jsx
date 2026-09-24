@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { motion } from "framer-motion";
 import { FaGift, FaCopy, FaBoxOpen } from "react-icons/fa";
 
 const normalize = (raw) => {
@@ -35,18 +36,38 @@ export default function LoveGift({ data }) {
 
   return (
     <section id="lovegift" className="bg-[#f7f7f5] px-7 py-16 text-center text-[#555]">
-      <h2 className="font-display text-4xl text-[#666]">Wedding Gift</h2>
-      <p className="mx-auto mt-4 max-w-sm text-sm leading-6 tracking-wide">
+      <motion.h2
+        className="font-display text-4xl text-[#666]"
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.65, ease: "easeOut" }}
+      >
+        Wedding Gift
+      </motion.h2>
+      <motion.p
+        className="mx-auto mt-4 max-w-sm text-sm leading-6 tracking-wide"
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.65, delay: 0.08, ease: "easeOut" }}
+      >
         Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Jika ingin memberikan tanda kasih,
         Anda dapat mengirimkannya melalui:
-      </p>
+      </motion.p>
 
-      <button
+      <motion.button
         onClick={() => setShow((v) => !v)}
         className="mt-6 inline-flex items-center gap-2 bg-[#c9954f] px-5 py-3 text-sm font-semibold text-white"
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.55, delay: 0.14, ease: "easeOut" }}
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.97 }}
       >
         <FaGift /> Kirim Hadiah
-      </button>
+      </motion.button>
 
       {show && (
         <div className="mx-auto mt-7 max-w-sm space-y-4 text-left">
