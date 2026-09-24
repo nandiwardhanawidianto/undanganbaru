@@ -70,7 +70,12 @@ export default function LoveGift({ data }) {
       </motion.button>
 
       {show && (
-        <div className="mx-auto mt-7 max-w-sm space-y-4 text-left">
+        <motion.div
+          className="mx-auto mt-7 max-w-sm space-y-4 text-left"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+        >
           {banks.map((bank, i) => {
             const name = pick(bank, "bank_name", "nama_bank", "bank") || "Bank";
             const no = pick(bank, "no_rekening", "norek", "account", "no_rek") || "-";
@@ -100,7 +105,7 @@ export default function LoveGift({ data }) {
               <p className="mt-1 text-sm leading-5">{kirimKado.alamat_penerima}</p>
             </div>
           )}
-        </div>
+        </motion.div>
       )}
     </section>
   );
