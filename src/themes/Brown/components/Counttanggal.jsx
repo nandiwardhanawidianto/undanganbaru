@@ -7,16 +7,8 @@ export default function Counttanggal({ data }) {
   const acara = data?.acaras?.[0] || {};
   const targetDateStr = acara?.tanggal_acara;
 
-  // ambil foto background
-  let bgUrl = BG;
-  if (data?.galeri?.[0]?.carousel_atas) {
-    const carouselAtas = data.galeri[0].carousel_atas;
-    if (Array.isArray(carouselAtas) && carouselAtas.length > 0) {
-      bgUrl = carouselAtas[0];
-    } else if (typeof carouselAtas === "string" && carouselAtas.startsWith("http")) {
-      bgUrl = carouselAtas;
-    }
-  }
+  // Foto countdown dari CMS, fallback ke Nonfoto.png
+  const bgUrl = data?.counting?.foto_counting || BG;
 
   const [timeLeft, setTimeLeft] = useState(getTimeLeft(targetDateStr));
 
