@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { FaClock } from "react-icons/fa";
 
 export default function Ucapan({ slugId, giftSlot = null }) {
@@ -49,12 +50,26 @@ export default function Ucapan({ slugId, giftSlot = null }) {
   return (
     <section id="ucapan" className="bg-[#efefed] text-[#555]">
       <div className="bg-[#c8c8c8] px-7 py-12">
-        <h2 className="font-display text-center text-3xl">Konfirmasi Kehadiran</h2>
-        <p className="mx-auto mt-2 max-w-xs text-center text-sm leading-5 tracking-wide">
+        <motion.h2
+          className="font-display text-center text-3xl"
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.65, ease: "easeOut" }}
+        >
+          Konfirmasi Kehadiran
+        </motion.h2>
+        <motion.p
+          className="mx-auto mt-2 max-w-xs text-center text-sm leading-5 tracking-wide"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
+        >
           Mohon kesediaannya untuk melakukan konfirmasi kehadiran, supaya kami bisa mempersiapkan kehadiran anda dengan baik.
-        </p>
+        </motion.p>
 
-        <form onSubmit={submit} className="mx-auto mt-7 max-w-sm space-y-3">
+        <motion.form onSubmit={submit} className="mx-auto mt-7 max-w-sm space-y-3">
           <input
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -84,14 +99,22 @@ export default function Ucapan({ slugId, giftSlot = null }) {
           >
             {sending ? "Mengirim..." : "Kirim Konfirmasi"}
           </button>
-        </form>
+        </motion.form>
       </div>
 
       {giftSlot}
 
       <div className="px-7 py-14">
         <div className="mx-auto max-w-sm rounded-xl border border-white bg-white/70 p-6 shadow-inner">
-          <h2 className="font-display text-center text-3xl text-[#6d7186]">Friends Wishes</h2>
+          <motion.h2
+            className="font-display text-center text-3xl text-[#6d7186]"
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.65, ease: "easeOut" }}
+          >
+            Friends Wishes
+          </motion.h2>
           <div className="mt-8 text-xs font-semibold uppercase tracking-[0.18em]">
             {Math.min(items.length, 10)} Best Friends Wishes
           </div>
