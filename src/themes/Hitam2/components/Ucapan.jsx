@@ -69,7 +69,14 @@ export default function Ucapan({ slugId, giftSlot = null }) {
           Mohon kesediaannya untuk melakukan konfirmasi kehadiran, supaya kami bisa mempersiapkan kehadiran anda dengan baik.
         </motion.p>
 
-        <motion.form onSubmit={submit} className="mx-auto mt-7 max-w-sm space-y-3">
+        <motion.form
+          onSubmit={submit}
+          className="mx-auto mt-7 max-w-sm space-y-3"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, delay: 0.12, ease: "easeOut" }}
+        >
           <input
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -115,14 +122,27 @@ export default function Ucapan({ slugId, giftSlot = null }) {
           >
             Friends Wishes
           </motion.h2>
-          <div className="mt-8 text-xs font-semibold uppercase tracking-[0.18em]">
+          <motion.div
+            className="mt-8 text-xs font-semibold uppercase tracking-[0.18em]"
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
+          >
             {Math.min(items.length, 10)} Best Friends Wishes
-          </div>
+          </motion.div>
           <div className="mt-2 h-[2px] bg-[#555]" />
 
           <div className="mt-5 space-y-4">
-            {items.slice(0, visible).map((item) => (
-              <div key={item.id} className="border-b border-[#d2d2d2] pb-3">
+            {items.slice(0, visible).map((item, index) => (
+              <motion.div
+                key={item.id}
+                className="border-b border-[#d2d2d2] pb-3"
+                initial={{ opacity: 0, y: 14 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: Math.min(index * 0.05, 0.2), ease: "easeOut" }}
+              >
                 <div className="flex items-center gap-2">
                   <span className="font-semibold text-[#de8b76]">{item.name}</span>
                   <FaClock className="text-[10px] text-[#999]" />
@@ -131,7 +151,7 @@ export default function Ucapan({ slugId, giftSlot = null }) {
                   </span>
                 </div>
                 <p className="mt-2 text-sm leading-5">{item.message}</p>
-              </div>
+              </motion.div>
             ))}
             {!items.length && <p className="py-6 text-center text-sm text-[#999]">Belum ada ucapan.</p>}
           </div>
