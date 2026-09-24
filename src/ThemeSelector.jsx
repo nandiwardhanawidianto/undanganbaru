@@ -15,19 +15,14 @@ const BaliApp = lazy(() => import("./themes/Bali/App"));
 const BugisApp = lazy(() => import("./themes/Bugis/App"));
 const BatakApp = lazy(() => import("./themes/Batak/App"));
 
-export default function ThemeSelector({ data, previewTheme = null }) {
-  // Preview override is intentionally available on this feature branch so
-  // Hitam2 can be tested with any real invitation slug without changing CMS data.
-  const queryTheme = new URLSearchParams(window.location.search)
-    .get("previewTheme")
-    ?.toLowerCase()
-    ?.trim();
+export default function ThemeSelector({ data }) {
+  const apiTheme = data?.slug?.theme?.toLowerCase()?.trim() || "violet";
+  const apiSlug = data?.slug?.slug?.toLowerCase()?.trim() || "";
 
-  const theme =
-    previewTheme?.toLowerCase()?.trim() ||
-    queryTheme ||
-    data?.slug?.theme?.toLowerCase()?.trim() ||
-    "violet";
+  // Dedicated development/test invitation for the new Hitam2 design.
+  // Data is still fetched normally from:
+  // /api/slug/contohhitam2/listapi
+  const theme = apiSlug === "contohhitam2" ? "hitam2" : apiTheme;
 
   let SelectedTheme;
 
