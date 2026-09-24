@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import bunga from "../assets/bunga.png";
+import bunga from "../assets/BUNGA.png";
 import cewe from "../assets/Cewe.png";
 import laki from "../assets/Laki.png";
 

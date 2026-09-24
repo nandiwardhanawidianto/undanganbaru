@@ -2,7 +2,7 @@ import { FaChevronDown, FaCalendarCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import { useEffect, useRef, useState } from "react";
-import sageAnim from "../assets/lottie/Undanganhitam.json";
+import sageAnim from "../assets/lottie/UndanganHitam.json";
 
 export default function Hero({ data }) {
   const hero = data?.heroInvitation || {};
