@@ -63,7 +63,6 @@ export default function Mempelai({ data }) {
                 src={hero?.foto_pria || ""}
                 alt="Mempelai Pria"
                 className="w-full h-full object-cover"
-                onError={(e) => (e.target.src = "/placeholder-male.png")}
                 initial={{ opacity: 0, scale: 1.05 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.1, duration: 1 }}
@@ -117,7 +116,6 @@ export default function Mempelai({ data }) {
                 src={hero?.foto_wanita || ""}
                 alt="Mempelai Wanita"
                 className="w-full h-full object-cover"
-                onError={(e) => (e.target.src = "/placeholder-female.png")}
                 initial={{ opacity: 0, scale: 1.05 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.1, duration: 1 }}
