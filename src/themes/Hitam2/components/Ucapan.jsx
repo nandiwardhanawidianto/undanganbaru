@@ -87,7 +87,9 @@ export default function Ucapan({ slugId, giftSlot = null }) {
         </form>
       </div>
 
-      {giftSlot}\n\n      <div className="px-7 py-14">
+      {giftSlot}
+
+      <div className="px-7 py-14">
         <div className="mx-auto max-w-sm rounded-xl border border-white bg-white/70 p-6 shadow-inner">
           <h2 className="font-display text-center text-3xl text-[#6d7186]">Friends Wishes</h2>
           <div className="mt-8 text-xs font-semibold uppercase tracking-[0.18em]">
