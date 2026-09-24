@@ -8,6 +8,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <Routes>
+        <Route path="/preview/hitam2/:slugId" element={<App previewTheme="hitam2" />} />
         <Route path="/:slugId" element={<App />} />
       </Routes>
     </BrowserRouter>
