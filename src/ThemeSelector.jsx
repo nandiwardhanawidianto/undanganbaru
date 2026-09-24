@@ -15,19 +15,17 @@ const BaliApp = lazy(() => import("./themes/Bali/App"));
 const BugisApp = lazy(() => import("./themes/Bugis/App"));
 const BatakApp = lazy(() => import("./themes/Batak/App"));
 
-export default function ThemeSelector({ data }) {
-  // Development-only theme override.
-  // Example: /real-slug?previewTheme=hitam2
-  // The real slug is still used by useInvitationData, so all API data stays intact.
-  const previewTheme = import.meta.env.DEV
-    ? new URLSearchParams(window.location.search)
-        .get("previewTheme")
-        ?.toLowerCase()
-        ?.trim()
-    : null;
+export default function ThemeSelector({ data, previewTheme = null }) {
+  // Preview override is intentionally available on this feature branch so
+  // Hitam2 can be tested with any real invitation slug without changing CMS data.
+  const queryTheme = new URLSearchParams(window.location.search)
+    .get("previewTheme")
+    ?.toLowerCase()
+    ?.trim();
 
   const theme =
-    previewTheme ||
+    previewTheme?.toLowerCase()?.trim() ||
+    queryTheme ||
     data?.slug?.theme?.toLowerCase()?.trim() ||
     "violet";
 
