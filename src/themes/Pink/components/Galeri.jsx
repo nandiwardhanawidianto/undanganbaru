@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
-import bggaleri from "../assets/Bg_AkadResepsipink.png";
+import bggaleri from "../assets/Bg_AkadResepsipink2.png";
 // import bucketbunga from "../assets/bucketbunga.png";
 
 export default function Galeri({ data }) {
@@ -202,7 +202,7 @@ export default function Galeri({ data }) {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="text-white text-4xl font-semibold mb-5">
+            <div className="text-pink-500 text-4xl font-semibold mb-5">
             Galeri</div>
           </motion.h2>
         )}
