@@ -106,7 +106,7 @@ export default function Tanggal({ data }) {
             {/* Isi acara */}
             <div className="absolute inset-0 flex items-center justify-center p-8">
               <motion.div
-                className="text-center text-coklat-700 rounded-3xl px-6 py-8"
+                className="text-center text-white rounded-3xl px-6 py-8"
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
@@ -123,7 +123,7 @@ export default function Tanggal({ data }) {
                 <p className="text-lg mb-4">Pukul {acara.pukul_acara}</p>
 
                 <div className="mt-3 flex flex-col items-center text-base">
-                  <SiGooglemaps className="text-coklat-700 w-8 h-8 mb-1" />
+                  <SiGooglemaps className="text-white w-8 h-8 mb-1" />
                   <p>Bertempat di</p>
                   <p className="font-semibold">{acara.alamat_acara}</p>
                 </div>

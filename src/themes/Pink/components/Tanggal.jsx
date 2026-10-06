@@ -3,7 +3,7 @@ import { motion, useMotionValue, animate } from "framer-motion";
 import { SiGooglemaps } from "react-icons/si";
 import { TbMapSearch } from "react-icons/tb";
 import bgtanggal from "../assets/Bg_all.png";
-import bgtanggal2 from "../assets/Bg_AkadResepsipink.png";
+import bgtanggal2 from "../assets/Bg_AkadResepsipink2.png";
 
 export default function Tanggal({ data }) {
   const acaras = data?.acaras || [];
@@ -127,7 +127,7 @@ export default function Tanggal({ data }) {
               {/* Isi acara */}
               <div className="absolute inset-0 flex items-center justify-center p-8">
                 <motion.div
-                  className="text-center text-white rounded-3xl px-6 py-8"
+                  className="text-center text-pink-500 rounded-3xl px-6 py-8"
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.6, ease: "easeOut" }}
@@ -143,7 +143,7 @@ export default function Tanggal({ data }) {
                   <p className="text-lg mb-4">Pukul {acara.pukul_acara}</p>
 
                   <div className="mt-3 flex flex-col items-center text-base">
-                    <SiGooglemaps className="text-pink-500 w-8 h-8 mb-1" />
+                    <SiGooglemaps className="text-white-500 w-8 h-8 mb-1" />
                     <p>Bertempat di</p>
                     <p className="font-semibold">{acara.alamat_acara}</p>
                   </div>
