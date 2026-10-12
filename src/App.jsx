@@ -3,28 +3,29 @@ import useInvitationData from "./hooks/useInvitationData";
 import ThemeSelector from "./ThemeSelector";
 
 function App() {
-  const { data, loading, error, slug } = useInvitationData();
+  const { data, loading, error } = useInvitationData();
 
   if (loading) {
-    return <p className="text-center mt-10">Loading data untuk {slug}...</p>;
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center p-6 text-white">
+        <p className="text-center text-white/80">Memuat undangan...</p>
+      </div>
+    );
   }
 
-  if (error) {
+  if (error || !data) {
     return (
-      <div className="min-h-screen bg-black p-6 text-white">
-        <div className="mx-auto max-w-xl rounded-xl border border-red-500 p-5">
-          <h1 className="font-bold text-red-400">API Error</h1>
-          <p className="mt-2">Slug: {slug}</p>
-          <p className="mt-2">{error}</p>
-          <p className="mt-3 break-all text-xs text-white/70">
-            https://cms.royalweddinginvitiation.com/api/slug/{slug}/listapi
+      <div className="min-h-screen bg-black flex items-center justify-center p-6 text-white">
+        <div className="w-full max-w-md rounded-2xl border border-white/20 bg-white/5 p-8 text-center shadow-xl">
+          <h1 className="text-2xl font-semibold">Undangan tidak ditemukan</h1>
+          <p className="mt-3 text-sm leading-6 text-white/70">
+            Link undangan tidak valid atau undangan sudah tidak tersedia.
+            Silakan periksa kembali link yang Anda terima.
           </p>
         </div>
       </div>
     );
   }
-
-  if (!data) return <p className="text-center mt-10">No data available...</p>;
 
   return <ThemeSelector data={data} />;
 }
